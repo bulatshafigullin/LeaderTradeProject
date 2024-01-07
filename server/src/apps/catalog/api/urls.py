@@ -1,6 +1,6 @@
 from django.urls import path
 
-from src.apps.catalog.api.views import (
+from catalog.api.views import (
     BrandListAPIView,
     MakeListAPIView,
     ModelListAPIView,

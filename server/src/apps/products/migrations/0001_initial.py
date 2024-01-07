@@ -160,12 +160,10 @@ class Migration(migrations.Migration):
                 ),
                 (
                     "rim_type",
-                    django_enum_choices.fields.EnumChoiceField(
+                    models.IntegerField(
                         blank=True,
-                        choice_builder=django_enum_choices.choice_builders.value_value,
                         choices=[("0", "0"), ("1", "1"), ("2", "2"), ("3", "3")],
                         default=None,
-                        enum_class=src.other.enums.RimType,
                         max_length=1,
                         null=True,
                         verbose_name="Тип дисков",

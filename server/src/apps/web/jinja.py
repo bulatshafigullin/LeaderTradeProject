@@ -10,6 +10,7 @@ from django.templatetags.tz import localtime
 from django.utils import timezone
 from cache_memoize import cache_memoize
 from products.models import Product
+from .jinja_ext import CacheExtension
 
 from jinja2 import Environment
 
@@ -68,14 +69,14 @@ def this_year_total():
 
 
 @cache_memoize(60)
-def get_contact():
-    from web.models import Contact
+def get_shop():
+    from locations.models import Shop
 
     try:
-        obj = Contact.objects.get(name="main")
+        obj = Shop.objects.first()
         return obj
     except:
-        return Contact()
+        return Shop()
 
 
 import re
@@ -97,6 +98,7 @@ def spark(ctx, name):
 
 def environment(**options):
     env = Environment(**options)
+    env.add_extension(CacheExtension)
     env.globals.update(
         {
             "static": static,
@@ -106,7 +108,8 @@ def environment(**options):
             "str": str,
             "spark": spark,
             "get_most_viewed_products": get_most_viewed_products,
-            "get_recent_promo": get_recent_promo
+            "get_recent_promo": get_recent_promo,
+            "get_shop": get_shop
         }
     )
     env.filters.update(

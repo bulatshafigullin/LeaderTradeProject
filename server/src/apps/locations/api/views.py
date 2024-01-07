@@ -2,15 +2,15 @@ from rest_framework import generics, status
 from rest_framework.request import Request
 from rest_framework.response import Response
 
-from src.apps.locations.api.pagination import LocationPagination
-from src.apps.locations.api.serializers import (
+from locations.api.pagination import LocationPagination
+from locations.api.serializers import (
     CitySerializer,
     AddressSerializer,
     ShopSerializer,
     CityDetailSerializer,
     AddressDetailSerializer,
 )
-from src.apps.locations.models import City, Address, Shop
+from locations.models import City, Address, Shop
 
 
 class CityListAPIView(generics.ListAPIView):

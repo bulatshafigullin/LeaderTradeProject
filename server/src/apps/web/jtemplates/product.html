@@ -1,0 +1,83 @@
+{% extends "base.html" %}
+
+{% block content %}
+<ul class="breadcrumbs">
+	<div class="container row">
+		<li>Главная</li>
+		<li><svg width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+				<path d="M6.25026 8.29995L3.53359 5.58328C3.21276 5.26245 3.21276 4.73745 3.53359 4.41662L6.25026 1.69995"
+					stroke="#B3B7BC" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" />
+			</svg>
+		</li>
+		<li><a href="/catalog/rims">Диски</a></li>
+		<li><a href="">{{item.title}}</a></li>
+	</div>
+</ul>
+
+<div class="spec">
+	<div class="spec-container">
+		<div class="spec__main">
+			<h1>{{item.get_type_display()}} {{item.title}}</h1>
+
+			<div class="spec__main__wrapper row">
+				<div class="spec__main__left">
+					<img src="/static/img/spec.webp" alt="">
+				</div>
+				<div class="spec__main__right">
+					<div class="spec__main__code">
+						Код товара: {{item.ext_data.code}}
+					</div>
+					<div class="spec__main__title">
+						Характеристики
+					</div>
+					<div class="spec__main__table">
+						<div class="spec__main__col">
+							Диаметр (D)
+						</div>
+						<div class="spec__main__col">
+							R{{item.size}}
+						</div>
+						<div class="spec__main__col">
+							Ширина диска
+						</div>
+						<div class="spec__main__col">
+							{{item.width}}
+						</div>
+						<div class="spec__main__col">
+							Вылет (ET)
+						</div>
+						<div class="spec__main__col">
+							{{item.et}} мм
+						</div>
+						<div class="spec__main__col">
+							Тип диска
+						</div>
+						<div class="spec__main__col">
+							{{item.get_rim_type_display()}}
+						</div>
+						<div class="spec__main__col">
+							Сверловка
+						</div>
+						<div class="spec__main__col">
+							{{item.bolts}}
+						</div>
+						<div class="spec__main__col">
+							Ширина обода
+						</div>
+						<div class="spec__main__col">
+							{{item.width}} мм
+						</div>
+						<div class="spec__main__col">
+							Диаметр центрального отверстия
+						</div>
+						<div class="spec__main__col">
+							{{item.dia}} мм
+						</div>
+					</div>
+				</div>
+			</div>
+
+		</div>
+	</div>
+</div>
+{% endblock content %}

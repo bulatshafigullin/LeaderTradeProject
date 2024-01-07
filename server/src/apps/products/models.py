@@ -8,7 +8,7 @@ from mptt.fields import TreeForeignKey
 from mptt.models import MPTTModel
 
 from src.apps.base.models import PKIDMixin, TimeStampedMixin
-from src.apps.catalog.models import Brand
+from catalog.models import Brand
 from src.apps.profiles.models import Profile
 from src.other.enums import ProductType, RimType, UnloadServiceType
 from src.utils.slug_utils import slugify
@@ -79,8 +79,10 @@ class Product(PKIDMixin, TimeStampedMixin):
     type = EnumChoiceField(
         ProductType, default=ProductType.RIMS, verbose_name=_("Тип товара")
     )
-    rim_type = EnumChoiceField(
-        RimType, default=0, null=True, blank=True, verbose_name=_("Тип дисков")
+    rim_type = models.CharField(
+        choices=RimType.choices, default=RimType.ALLOY, 
+        max_length=1,
+        null=True, blank=True, verbose_name=_("Тип дисков")
     )
     color = models.CharField(
         max_length=100, verbose_name=_("Цвет"), blank=True, null=True
@@ -156,6 +158,7 @@ class Product(PKIDMixin, TimeStampedMixin):
         verbose_name=_("Код(Артикул)"), blank=True, null=True
     )
     views = models.IntegerField(default=0, verbose_name=_("Просмотры"))
+    buyed = models.IntegerField(default=0, verbose_name=_("Покупки"))
     image = models.ImageField(
         upload_to="products/", blank=True, null=True, verbose_name=_("Изображение"),
         max_length=255

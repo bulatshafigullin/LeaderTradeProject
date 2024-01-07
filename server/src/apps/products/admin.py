@@ -15,6 +15,7 @@ class ProductImageInline(admin.StackedInline):
 class CategoryAdmin(admin.ModelAdmin):
     list_display = ["pk_id", "title", "parent", "slug"]
     list_display_links = ["pk_id", "title", "slug"]
+    prepopulated_fields = {'slug': ('title',), }
 
 
 class ProductAdmin(admin.ModelAdmin):

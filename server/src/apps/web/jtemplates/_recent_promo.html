@@ -1,0 +1,50 @@
+<section class="promo">
+    <div class="container">
+        <h2>Акции месяца</h2>
+        <a href="" class="slider-left">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M15 19.92L8.48003 13.4C7.71003 12.63 7.71003 11.37 8.48003 10.6L15 4.08002" stroke="#243228"
+                    stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+        </a>
+        <div class="promo-slider">
+            <div class="swiper-wrapper">
+                {% for pr in get_recent_promo() %}
+                <div class="swiper-slide" {% if pr.pic %}style="background: url('{{pr.pic.url}}')" {% endif %} ts-req-after="openFancy" ts-req="/js/spark/promo/{{pr.id}}" ts-target="#promo1" ts-swap="inner">
+                    <div class="promo-slider__left">
+                        <div class="promo-slider__title">
+                            {{pr.title}}
+                        </div>
+                        {% if pr.title2 %}
+                        <p>
+                            {{pr.title2}}
+                        </p>
+                        {% endif %}
+                        <a href="#">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M14.43 5.92999L20.5 12L14.43 18.07" stroke="#243228" stroke-width="1.5"
+                                    stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" />
+                                <path d="M3.5 12H20.33" stroke="#243228" stroke-width="1.5" stroke-miterlimit="10"
+                                    stroke-linecap="round" stroke-linejoin="round" />
+                            </svg>
+                        </a>
+                    </div>
+                    <!-- <div class="promo-slider__img">
+                        <img src="/static/img/p1.png" alt="">
+                    </div> -->
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        <a href="" class="slider-right">
+            <svg width="26" height="26" viewBox="0 0 26 26" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M9.65253 21.58L16.7159 14.5166C17.55 13.6825 17.55 12.3175 16.7159 11.4833L9.65253 4.41998"
+                    stroke="#243228" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="square"
+                    stroke-linejoin="round" />
+            </svg>
+        </a>
+    </div>
+
+    <div class="pop-city promo-popup" id="promo1">
+    </div>
+</section>

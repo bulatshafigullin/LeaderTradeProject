@@ -2,7 +2,7 @@ from django.utils.translation import gettext_lazy as _
 from django_enum_choices.serializers import EnumChoiceField
 from rest_framework import serializers
 
-from src.apps.locations.models import City, Address, Shop, Worktime
+from locations.models import City, Address, Shop, Worktime
 
 
 class WorktimeSerializer(serializers.ModelSerializer):

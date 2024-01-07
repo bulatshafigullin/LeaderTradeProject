@@ -43,7 +43,15 @@ class Shop(PKIDMixin, TimeStampedMixin):
         on_delete=models.CASCADE,
         verbose_name=_("Адрес"),
     )
+    phone = models.CharField(max_length=250, null=True, blank=True)
     email = models.CharField(max_length=255, verbose_name=_("Почта"))
+    wa = models.CharField('Whatsapp', max_length=250, null=True, blank=True)
+    tg = models.CharField('Телеграм', max_length=250, null=True, blank=True)
+    tk = models.CharField('Tiktok', max_length=250, null=True, blank=True)
+    ig = models.CharField('Instagram', max_length=250, null=True, blank=True)
+    vk = models.CharField('ВК', max_length=250, null=True, blank=True)
+    yt = models.CharField('Youtube', max_length=250, null=True, blank=True)
+
     latitude = models.DecimalField(
         max_digits=22,
         decimal_places=16,
@@ -58,10 +66,12 @@ class Shop(PKIDMixin, TimeStampedMixin):
         blank=True,
         verbose_name=_("Долгота"),
     )
+    sort_order = models.IntegerField('Порядок', default=1)
 
     class Meta:
         verbose_name = _("Магазин")
         verbose_name_plural = _("Магазины")
+        ordering = ['sort_order']
 
     def __str__(self) -> str:
         return self.email

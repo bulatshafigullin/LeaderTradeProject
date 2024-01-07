@@ -2,12 +2,12 @@ from rest_framework import generics, status
 from rest_framework.request import Request
 from rest_framework.response import Response
 
-from src.apps.catalog.api.serializers import (
+from catalog.api.serializers import (
     MakeSerializer,
     ModelSerializer,
     BrandSerializer,
 )
-from src.apps.catalog.models import Make, Model, Brand
+from catalog.models import Make, Model, Brand
 
 
 class MakeListAPIView(generics.ListAPIView):

@@ -6,6 +6,7 @@ from src.apps.base.models import PKIDMixin, TimeStampedMixin
 
 class Brand(PKIDMixin, TimeStampedMixin):
     title = models.CharField(max_length=100, verbose_name=_("Название"))
+    slug = models.SlugField(max_length=150, null=True, blank=True)
     description = models.TextField(blank=True, verbose_name=_("Описание"))
 
     class Meta:

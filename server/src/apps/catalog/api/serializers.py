@@ -4,7 +4,7 @@ from django.utils.translation import gettext_lazy as _
 from django_enum_choices.serializers import EnumChoiceField
 from rest_framework import serializers
 
-from src.apps.catalog.models import Make, Brand, Model
+from catalog.models import Make, Brand, Model
 
 
 class MakeSerializer(serializers.ModelSerializer):

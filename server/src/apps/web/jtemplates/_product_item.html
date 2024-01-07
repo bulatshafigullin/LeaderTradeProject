@@ -1,4 +1,4 @@
-<a href="/product/{{p.slug}}" class=" items__one">
+<a href="/product/{{p.slug}}" class="{% if in_slider %}swiper-slide {% endif %} items__one">
 	<div class="item-top">
 		<img src="{{p.image.name|remq}}" alt="">
 		<!-- <div class="item-shild green">new</div> -->

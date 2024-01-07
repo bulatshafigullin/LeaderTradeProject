@@ -1,3 +1,4 @@
+from django.db import models
 from enum import Enum
 
 
@@ -69,11 +70,14 @@ class ProductColor(str, Enum):
     WHITE = "white"
 
 
-class RimType(str, Enum):
-    # Литой
-    ALLOY = 0
-    # Литые
-    FLOW_FORMING = 1
-    # Ковыный
-    FORGED = 2
-    MAKET = 3
+class RimType(models.TextChoices):
+    ALLOY = '0', 'Литые'
+    STAMP = '4', 'Штампованые'
+    FORGED = '2', 'Кованые'
+    TRUCK = '5', 'Грузовые'
+
+
+class TireSeason(models.TextChoices):
+    summer = 'summer', 'Летние'
+    winter = 'winter', 'Зимние'
+    universal = 'univ', 'Всесезонные'

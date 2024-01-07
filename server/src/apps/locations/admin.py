@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from src.apps.locations.models import City, Address, Shop, Worktime
+from locations.models import City, Address, Shop, Worktime
 
 
 class WorktimeInline(admin.StackedInline):

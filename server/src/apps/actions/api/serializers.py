@@ -4,7 +4,7 @@ from django_enum_choices.serializers import EnumChoiceField
 from rest_framework import serializers
 
 from src.apps.actions.models import FormApplication, CallRequest, Portfolio, Review
-from src.apps.catalog.api.serializers import MakeSerializer
+from catalog.api.serializers import MakeSerializer
 from src.other.enums import FormApplicationStatus, CallRequestStatus
 
 

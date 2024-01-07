@@ -26,12 +26,10 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name="product",
             name="rim_type",
-            field=django_enum_choices.fields.EnumChoiceField(
+            field=models.IntegerField(
                 blank=True,
-                choice_builder=django_enum_choices.choice_builders.value_value,
                 choices=[("0", "0"), ("1", "1"), ("2", "2"), ("3", "3")],
                 default=0,
-                enum_class=src.other.enums.RimType,
                 max_length=1,
                 null=True,
                 verbose_name="Тип дисков",

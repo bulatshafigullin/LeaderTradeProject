@@ -1,5 +1,6 @@
+{% set main_shop = get_shop() %}
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 
 <head>
     <meta charset="UTF-8">
@@ -16,17 +17,15 @@
         integrity="sha512-qveKnGrvOChbSzAdtSs8p69eoLegyh+1hwOMbmpCViIwj7rn4oJjdmMvWOuyQlTOZgTlZA0N2PXA7iA8/2TUYA=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.css" />
-    <link rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/lightgallery/2.7.1/css/lightgallery-bundle.min.css"
-        integrity="sha512-nUqPe0+ak577sKSMThGcKJauRI7ENhKC2FQAOOmdyCYSrUh0GnwLsZNYqwilpMmplN+3nO3zso8CWUgu33BDag=="
-        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    {% block css %}
+    {% endblock css %}
     <link rel="stylesheet" href="/static/css/style.min.css">
 </head>
 
 <body>
 <div class="top-menu">
 	<div class="container row row-space">
-		<div class="top-menu__left">
+		{# <div class="top-menu__left">
 			<div class="top-menu__region" data-fancybox data-src="#popcity">
 				Казань
 			</div>
@@ -35,19 +34,19 @@
 				<path d="M9.95998 4.4751L6.69998 7.7351C6.31498 8.1201 5.68498 8.1201 5.29998 7.7351L2.03998 4.4751"
 					stroke="#243228" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" />
 			</svg>
-		</div>
+		</div> #}
 		<ul class="top-menu__right row">
-			<li><a href="/about">О компании</a></li>
-			<li><a href="/news">Новости</a></li>
-			<li><a href="/rassrochka">Рассрочка</a></li>
-			<li><a href="/portfolio">Портфолио</a></li>
-			<li><a href="/reviews">Отзывы</a></li>
-			<li><a href="/payment-delivery">Оплата и доставка</a></li>
-			<li><a href="/return">Возврат</a></li>
-			<li><a href="/partnership">Сотрудничество</a></li>
-			<li><a href="/for-legal-entities">Юр. лицам</a></li>
-			<li><a href="mailto:info@leadertrade.ru">info@leadertrade.ru</a></li>
-			<li><a href="/contacts">Контакты</a></li>
+			<li><a href="/about/">О компании</a></li>
+			<li><a href="/news/">Новости</a></li>
+			<li><a href="/rassrochka/">Рассрочка</a></li>
+			<li><a href="/portfolio/">Портфолио</a></li>
+			<li><a href="/reviews/">Отзывы</a></li>
+			<li><a href="/payment-delivery/">Оплата и доставка</a></li>
+			<li><a href="/return/">Возврат</a></li>
+			<li><a href="/partnership/">Сотрудничество</a></li>
+			<li><a href="/for-legal-entities/">Юр. лицам</a></li>
+			<li><a href="mailto:{{main_shop.email}}">{{main_shop.email}}</a></li>
+			<li><a href="/contacts/">Контакты</a></li>
 		</ul>
 	</div>
 </div>
@@ -102,15 +101,15 @@
 				</svg>
 			</div>
 		</div>
-		<a href="tel:" class="main-menu__tel">
+		<a href="tel:{{main_shop.phone}}" class="main-menu__tel">
 			<svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
 				<path
 					d="M5.77977 7.80102C6.29842 8.86135 7.15792 9.71695 8.2206 10.2308C8.29835 10.2676 8.38436 10.2836 8.47015 10.2771C8.55595 10.2706 8.63857 10.2419 8.7099 10.1937L10.2746 9.15034C10.3438 9.1042 10.4234 9.07605 10.5063 9.06844C10.5891 9.06083 10.6725 9.074 10.749 9.10677L13.6763 10.3613C13.7757 10.4036 13.8588 10.477 13.9128 10.5705C13.9669 10.664 13.9892 10.7726 13.9762 10.8799C13.8837 11.6039 13.5304 12.2693 12.9826 12.7516C12.4347 13.2339 11.7299 13.5 11 13.5001C8.74566 13.5001 6.58365 12.6045 4.98959 11.0105C3.39553 9.41641 2.5 7.2544 2.5 5.00006C2.50004 4.27017 2.76612 3.56532 3.24843 3.01748C3.73073 2.46965 4.39618 2.1164 5.12019 2.02387C5.22745 2.01089 5.33602 2.03312 5.42955 2.08721C5.52307 2.1413 5.59649 2.22432 5.63873 2.32376L6.89439 5.25363C6.92687 5.32941 6.9401 5.41205 6.93291 5.49419C6.92572 5.57632 6.89833 5.65541 6.85318 5.7244L5.81341 7.31313C5.76608 7.3846 5.73811 7.46712 5.73221 7.55263C5.72631 7.63815 5.7427 7.72373 5.77977 7.80102Z"
 					fill="#243228" />
 			</svg>
-			<span>8 800 2560-720</span>
+			<span>{{main_shop.phone}}</span>
 		</a>
-		<a href="" class="main-menu__like">
+		<a href="/favorites/" class="main-menu__like">
 			<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
 				<path
 					d="M12.5303 20.864L20.1271 13.2672C21.9937 11.4006 22.2691 8.32976 20.5027 6.36811C20.0602 5.87533 19.522 5.47786 18.9208 5.19997C18.3197 4.92207 17.6682 4.76956 17.0062 4.75176C16.3441 4.73396 15.6854 4.85123 15.0702 5.09642C14.455 5.34161 13.8962 5.70957 13.4279 6.17786L12 7.60571L10.7672 6.3729C8.9006 4.5063 5.82976 4.23091 3.86811 5.99735C3.37533 6.43981 2.97786 6.97804 2.69997 7.57919C2.42207 8.18034 2.26956 8.83181 2.25176 9.49384C2.23396 10.1559 2.35123 10.8146 2.59642 11.4298C2.84161 12.045 3.20957 12.6038 3.67786 13.0721L11.4697 20.864C11.6103 21.0046 11.8011 21.0836 12 21.0836C12.1989 21.0836 12.3897 21.0046 12.5303 20.864Z"
@@ -130,7 +129,7 @@
 					stroke="#243228" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
 			</svg>
 		</a>
-		<a href="" class="main-menu__cart">
+		<a href="/cart/" class="main-menu__cart">
 			<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
 				<path
 					d="M2 3H3.74001C4.82001 3 5.67 3.93 5.58 5L4.75 14.96C4.61 16.59 5.89999 17.99 7.53999 17.99H18.19C19.63 17.99 20.89 16.81 21 15.38L21.54 7.88C21.66 6.22 20.4 4.87 18.73 4.87H5.82001"
@@ -202,27 +201,27 @@
 <div class="mobile-fade">
 	<div class="container">
 		<ul class="mobile-fade__grid">
-			<li class="mobile-fade__item"><a href="/about">О компании</a></li>
-			<li class="mobile-fade__item"><a href="/payment-delivery">Оплата и доставка</a></li>
-			<li class="mobile-fade__item"><a href="/news">Новости</a></li>
-			<li class="mobile-fade__item"><a href="/return">Возврат</a></li>
-			<li class="mobile-fade__item"><a href="/rassrochka">Рассрочка</a></li>
-			<li class="mobile-fade__item"><a href="/partnership">Сотрудничество</a></li>
-			<li class="mobile-fade__item"><a href="/portfolio">Портфолио</a></li>
-			<li class="mobile-fade__item"><a href="/for-legal-entities">Юр. лицам</a></li>
-			<li class="mobile-fade__item"><a href="/reviews">Отзывы</a></li>
-			<li class="mobile-fade__item"><a href="/contacts">Контакты</a></li>
+			<li class="mobile-fade__item"><a href="/about/">О компании</a></li>
+			<li class="mobile-fade__item"><a href="/payment-delivery/">Оплата и доставка</a></li>
+			<li class="mobile-fade__item"><a href="/news/">Новости</a></li>
+			<li class="mobile-fade__item"><a href="/return/">Возврат</a></li>
+			<li class="mobile-fade__item"><a href="/rassrochka/">Рассрочка</a></li>
+			<li class="mobile-fade__item"><a href="/partnership/">Сотрудничество</a></li>
+			<li class="mobile-fade__item"><a href="/portfolio/">Портфолио</a></li>
+			<li class="mobile-fade__item"><a href="/for-legal-entities/">Юр. лицам</a></li>
+			<li class="mobile-fade__item"><a href="/reviews/">Отзывы</a></li>
+			<li class="mobile-fade__item"><a href="/contacts/">Контакты</a></li>
 		</ul>
 
 		<div class="mobile-fade__contacts">
-			<a href="mailto:" class="mail">info@leadertrade.ru</a>
-			<a href="tel:" class="tel row">
+			<a href="mailto:{{main_shop.email}}" class="mail">{{main_shop.email}}</a>
+			<a href="tel:{{main_shop.phone}}" class="tel row">
 				<svg width="22" height="23" viewBox="0 0 22 23" fill="none" xmlns="http://www.w3.org/2000/svg">
 					<path
 						d="M7.94718 11.1856C8.66032 12.6436 9.84213 13.82 11.3033 14.5265C11.4102 14.5772 11.5285 14.5991 11.6465 14.5902C11.7644 14.5812 11.878 14.5418 11.9761 14.4756L14.1276 13.0409C14.2228 12.9775 14.3322 12.9388 14.4461 12.9283C14.56 12.9178 14.6747 12.936 14.7798 12.981L18.8049 14.706C18.9416 14.7641 19.0558 14.8651 19.1302 14.9937C19.2045 15.1223 19.2351 15.2715 19.2173 15.419C19.09 16.4145 18.6043 17.3295 17.851 17.9927C17.0978 18.6559 16.1286 19.0217 15.125 19.0218C12.0253 19.0218 9.05252 17.7904 6.86069 15.5986C4.66886 13.4068 3.4375 10.434 3.4375 7.33428C3.43755 6.33068 3.80342 5.36151 4.46659 4.60824C5.12975 3.85497 6.04475 3.36925 7.04026 3.24202C7.18774 3.22418 7.33703 3.25474 7.46562 3.32912C7.59422 3.40349 7.69517 3.51764 7.75325 3.65437L9.47978 7.68294C9.52444 7.78714 9.54264 7.90077 9.53275 8.01371C9.52287 8.12664 9.4852 8.23538 9.42312 8.33024L7.99343 10.5147C7.92836 10.613 7.88989 10.7265 7.88179 10.8441C7.87368 10.9617 7.89621 11.0793 7.94718 11.1856Z"
 						fill="#243228" />
 				</svg>
-				8 800 2560-720
+				{{main_shop.phone}}
 			</a>
 		</div>
 		<div class="main-menu__find">
@@ -249,21 +248,31 @@
 			</div>
 		</div>
 		<div class="mobile-fade__soc row">
-			<a href="">
+			{% if main_shop.it %}
+			<a href="{{main_shop.it}}">
 				<img src="/static/files/c1.svg" alt="">
 			</a>
-			<a href="">
+			{% endif %}
+			{% if main_shop.tg %}
+			<a href="{{main_shop.tg}}">
 				<img src="/static/files/c2.svg" alt="">
 			</a>
-			<a href="">
+			{% endif %}
+			{% if main_shop.tk %}
+			<a href="{{main_shop.tk}}">
 				<img src="/static/files/c3.svg" alt="">
 			</a>
-			<a href="">
+			{% endif %}
+			{% if main_shop.yt %}
+			<a href="{{main_shop.yt}}">
 				<img src="/static/files/c4.svg" alt="">
 			</a>
-			<a href="">
+			{% endif %}
+			{% if main_shop.wa %}
+			<a href="{{main_shop.wa}}">
 				<img src="/static/files/c6.svg" alt="">
 			</a>
+			{% endif %}
 		</div>
 	</div>
 </div>
@@ -321,7 +330,7 @@
 					</p>
 				</div>
 				<div class="mainHeader__right__item__right">
-					<img src="/static/img/img2.png" alt="">
+					<img src="/static/img/img2.webp" alt="">
 				</div>
 			</div>
 		</div>
@@ -332,16 +341,16 @@
 	<div class="container">
 		<ul class="row row-space menu-slider">
 			<div class="swiper-wrapper">
-				<li class="menu-bottom__color swiper-slide"><a href="">Распродажа</a></li>
-				<li class="swiper-slide"><a href="/catalog/tires">Шины</a></li>
-				<li class="swiper-slide"><a href="/catalog/rims">Диски</a></li>
-				<li class="swiper-slide"><a href="">Колёса в сборе</a></li>
+				<li class="menu-bottom__color swiper-slide"><a href="/sale/">Распродажа</a></li>
+				<li class="swiper-slide"><a href="/shiny/">Шины</a></li>
+				<li class="swiper-slide"><a href="/diski/">Диски</a></li>
+				<li class="swiper-slide"><a href="/kolesa-v-sbore/">Колёса в сборе</a></li>
 
-				<li class="swiper-slide"><a href="">Аксессуары</a></li>
-				<li class="swiper-slide"><a href="">Шиномонтаж</a></li>
-				<li class="swiper-slide"><a href="">Шинный калькулятор</a></li>
+				<li class="swiper-slide"><a href="/aksessuary/">Аксессуары</a></li>
+				<li class="swiper-slide"><a href="/shinomontazh/">Шиномонтаж</a></li>
+				<li class="swiper-slide"><a href="/calculator/">Шинный калькулятор</a></li>
 				<li class="menu-bottom__color swiper-slide">
-					<a href="/promo">
+					<a href="/promo/">
 						Акции
 						<svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
 							<path
@@ -357,6 +366,7 @@
 {% block content %}
 {% endblock content %}
 
+{% cache 60*3 'footer' %}
 <footer>
 	<div class="container">
 		<div class="footer__wrapper">
@@ -395,21 +405,31 @@
 					</svg>
 				</div>
 				<div class="footer__top__socials row">
-					<a href="" class="footer__top__social">
+					{% if main_shop.ig %}
+					<a href="{{main_shop.ig}}" class="footer__top__social">
 						<img src="/static/files/s1.svg" alt="">
 					</a>
-					<a href="" class="footer__top__social">
+					{% endif %}
+					{% if main_shop.tg %}
+					<a href="{{main_shop.tg}}" class="footer__top__social">
 						<img src="/static/files/s2.svg" alt="">
 					</a>
-					<a href="" class="footer__top__social">
+					{% endif %}
+					{% if main_shop.tk %}
+					<a href="{{main_shop.tk}}" class="footer__top__social">
 						<img src="/static/files/s3.svg" alt="">
 					</a>
-					<a href="" class="footer__top__social">
+					{% endif %}
+					{% if main_shop.yt %}
+					<a href="{{main_shop.yt}}" class="footer__top__social">
 						<img src="/static/files/s4.svg" alt="">
 					</a>
-					<a href="" class="footer__top__social">
+					{% endif %}
+					{% if main_shop.wa %}
+					<a href="{{main_shop.wa}}" class="footer__top__social">
 						<img src="/static/files/s5.svg" alt="">
 					</a>
+					{% endif %}
 				</div>
 			</div>
 
@@ -565,71 +585,30 @@
 <ul class="footer__under">
 	<div class="container row">
 		<li>2023 © Интернет-магазин ЛидерТрейд</li>
-		<li><a href="/policy">Политика конфиденциальности</a></li>
-		<li><a href="/sitemap">Карта сайта</a></li>
+		<li><a href="/policy/">Политика конфиденциальности</a></li>
+		<li><a href="/sitemap/">Карта сайта</a></li>
 	</div>
 </ul>
 
-<div class="pop-city" id="popcity">
-	<h2>Выберите город</h2>
-	<div class="catalog__search">
-		<svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-			<path
-				d="M6.34375 10.9375C8.88081 10.9375 10.9375 8.88081 10.9375 6.34375C10.9375 3.80669 8.88081 1.75 6.34375 1.75C3.80669 1.75 1.75 3.80669 1.75 6.34375C1.75 8.88081 3.80669 10.9375 6.34375 10.9375Z"
-				stroke="#243228" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
-			<path d="M9.5918 9.59216L12.2496 12.25" stroke="#243228" stroke-width="1.5" stroke-linecap="round"
-				stroke-linejoin="round"></path>
-		</svg>
-		<input type="text" placeholder="Поиск по городам">
+{% endcache %}
 
-	</div>
-	<div class="pop-city__grid">
-		<label class="catalog__check radio">
-			<span>Казань</span>
-			<input type="radio" name="citysel">
-		</label>
-		<label class="catalog__check radio">
-			<span>Москва</span>
-			<input type="radio" name="citysel">
-		</label>
-		<label class="catalog__check radio">
-			<span>Челябинск</span>
-			<input type="radio" name="citysel">
-		</label>
-		<label class="catalog__check radio">
-			<span>Санкт-Петербург</span>
-			<input type="radio" name="citysel">
-		</label>
-	</div>
-	<button class="btn">Выбрать</button>
-</div>
-<!-- JQUERY -->
+{# <div class="pop-city" id="popcity">
+</div> #}
 <script defer src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 
-<!-- Swiper -->
-<script defer src="https://unpkg.com/swiper@8/swiper-bundle.min.js"></script>
+<script defer src="https://unpkg.com/swiper@8.4.7/swiper-bundle.min.js"></script>
 
-<!-- Selectize -->
 <script defer src="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.15.2/js/selectize.min.js"
 	integrity="sha512-IOebNkvA/HZjMM7MxL0NYeLYEalloZ8ckak+NDtOViP7oiYzG5vn6WVXyrJDiJPhl4yRdmNAG49iuLmhkUdVsQ=="
 	crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
-<!-- noUISlider -->
-<script defer src="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/15.7.1/nouislider.min.js"
-	integrity="sha512-UOJe4paV6hYWBnS0c9GnIRH8PLm2nFK22uhfAvsTIqd3uwnWsVri1OPn5fJYdLtGY3wB11LGHJ4yPU1WFJeBYQ=="
-	crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-
-<!-- Fancybox -->
 <script defer src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.umd.js"></script>
 
-<!-- iMask -->
-<script defer src="https://unpkg.com/imask"></script>
+<script defer src="https://unpkg.com/imask@7.3.0/dist/imask.js"></script>
 
-<!-- lightGallery -->
-<script defer src="https://cdnjs.cloudflare.com/ajax/libs/lightgallery/2.7.1/lightgallery.min.js"
-	integrity="sha512-dSI4QnNeaXiNEjX2N8bkb16B7aMu/8SI5/rE6NIa3Hr/HnWUO+EAZpizN2JQJrXuvU7z0HTgpBVk/sfGd0oW+w=="
-	crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+{% block js %}
 
+{% endblock js %}
 <script defer src="/static/js/twinspark.min.js"></script>
 <script defer src="/static/js/app.js"></script>
 </body>

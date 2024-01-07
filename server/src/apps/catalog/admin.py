@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from src.apps.catalog.models import Make, Model, Brand
+from catalog.models import Make, Model, Brand
 
 
 class MakeAdmin(admin.ModelAdmin):
@@ -20,6 +20,7 @@ class BrandAdmin(admin.ModelAdmin):
     list_display = ["pk_id", "title"]
     list_display_links = ["pk_id", "title"]
     search_fields = ["title"]
+    prepopulated_fields = {'slug': ('title',), }
 
 
 admin.site.register(Make, MakeAdmin)

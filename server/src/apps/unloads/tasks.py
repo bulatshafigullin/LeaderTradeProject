@@ -4,7 +4,7 @@ from celery.utils.log import get_task_logger
 from django.db.models import Q, F
 
 from core.settings import CHUNK_STEP
-from src.apps.catalog.models import Brand
+from catalog.models import Brand
 from src.api.requests.fortochki_requests import (
     refresh_wsdl_file,
     find_rim_list,

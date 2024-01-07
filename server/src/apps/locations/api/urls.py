@@ -1,7 +1,7 @@
 from django.urls import path
 
-from src.apps.locations.api.serializers import CitySerializer
-from src.apps.locations.api.views import (
+from locations.api.serializers import CitySerializer
+from locations.api.views import (
     CityListAPIView,
     AddressListAPIView,
     CityDetailAPIView,

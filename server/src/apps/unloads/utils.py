@@ -9,7 +9,7 @@ from src.api.schemas.fortochki_schemas import (
     TyreContainerSchema,
 )
 from src.api.schemas.starco_schemas import StarcoRimSchema, StarcoTyreSchema
-from src.apps.catalog.models import Brand
+from catalog.models import Brand
 from products.models import Category, Product
 from src.other.enums import ProductType, UnloadServiceType
 from src.utils.number_utils import float_or_none, int_or_none
@@ -73,6 +73,7 @@ def update_fortochki_price_info(
 
 
 def update_fortochki_rim_info(data: RimContainerSchema, rim: Product) -> None:
+    rim.size = int(data.diameter)
     rim.dia = data.dia
     rim.et = data.et
     rim.pcd = data.bolts_spacing
