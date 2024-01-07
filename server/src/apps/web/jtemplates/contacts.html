@@ -20,14 +20,15 @@
 				<div class="contactsMain__sub">
 					Горячая линия
 				</div>
-				<a href="" class="contactsMain__contact">
-					8 800 2560-720
+				<a href="tel:{{main_shop.phone}}" class="contactsMain__contact">
+					{{main_shop.phone}}
 				</a>
 				<div class="contactsMain__descr">
 					Принимаем звонки с 9:00 до 21:00, воскресенье выходной
 				</div>
 				<div class="contactsMain__btns">
-					<a href="" class="contactsMain__btn row tg">
+					{% if main_shop.tg %}
+					<a href="https://t.me/{{main_shop.tg}}" class="contactsMain__btn row tg">
 						<svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
 							<g clip-path="url(#clip0_8_15222)">
 								<path fill-rule="evenodd" clip-rule="evenodd"
@@ -42,7 +43,9 @@
 						</svg>
 						Telegram
 					</a>
-					<a href="" class="contactsMain__btn row ws">
+					{% endif %}
+					{% if main_shop.wa %}
+					<a href="https://api.whatsapp.com/send?phone={{main_shop.wa}}" class="contactsMain__btn row ws">
 						<svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
 							<path
 								d="M0 22C0.236454 21.1355 0.46143 20.3145 0.685487 19.4931C0.955917 18.5023 1.22956 17.512 1.49173 16.5189C1.51736 16.412 1.50502 16.2995 1.45683 16.2007C0.400824 14.2833 -0.05831 12.2273 0.125344 10.0547C0.388427 6.94452 1.75573 4.38989 4.17031 2.40965C5.51327 1.3037 7.11095 0.550307 8.81859 0.217739C13.9205 -0.796948 18.8277 1.81369 20.9301 6.40412C21.7147 8.1199 22.0123 9.9243 21.8663 11.7971C21.4994 16.5074 18.016 20.5165 13.4035 21.545C10.8034 22.1244 8.31629 21.7842 5.94211 20.5808C5.8362 20.5318 5.71695 20.5195 5.60327 20.5459C3.8278 21.0051 2.05417 21.4697 0.280531 21.9339C0.20156 21.9532 0.12213 21.9706 0 22ZM2.63359 19.3958C2.73828 19.3705 2.81725 19.3526 2.89576 19.332C3.85994 19.0799 4.82412 18.8329 5.7883 18.5703C5.98298 18.5175 6.13036 18.5473 6.30024 18.6479C8.40169 19.893 10.6492 20.2617 13.0344 19.725C18.1307 18.5772 21.2166 13.2053 19.6459 8.22642C18.2148 3.69109 13.6863 1.06392 9.02795 2.07402C5.18592 2.90919 2.14186 6.27372 1.94994 10.5184C1.87051 12.2732 2.25573 13.9353 3.17399 15.4367C3.46463 15.9119 3.51559 16.309 3.34525 16.826C3.07115 17.6607 2.87188 18.5207 2.63359 19.3958Z"
@@ -53,55 +56,34 @@
 						</svg>
 						WhatsApp
 					</a>
+					{% endif %}
 				</div>
 			</div>
 			<div class="contactsMain__block contactsMain__map-block">
 				<div class="contactsMain__cities">
-					<a href="" class="contactsMain__city active">Казань</a>
-					<a href="" class="contactsMain__city">Москва</a>
-					<a href="" class="contactsMain__city">Санкт-Петербург</a>
+					{% for shop in shops %}
+					<a href="#{{shop.id}}" class="contactsMain__city active">{{shop.address.city.title}}</a>
+					{% endfor %}
 				</div>
 				<div class="contactsMain__wrapper">
+					{% for shop in shops %}
 					<div class="contactsMain__mapItem active">
 						<div class="contactsMain__title">
-							Республика Татарстан, Казань, проспект Победы, дом 100
+							{{shop.address.street}}, {{shop.address.house}}
 						</div>
 						<div class="contactsMain__dates row">
+							{% for d in shop.work_times.all() %}
 							<div class="contactsMain__dates__item">
-								<span>Пн</span>
-								<p>08:30</p>
-								<p>17:30</p>
+								<span>{{d.get_day_of_week_display()}}</span>
+								{% if d.start_time == d.end_time %}
+								    
+								<p>Выходной день</p>
+								{% else %}
+								<p>{{d.start_time|date("H:i")}}</p>
+								<p>{{d.end_time|date("H:i")}}</p>
+								{% endif %}
 							</div>
-							<div class="contactsMain__dates__item">
-								<span>Вт</span>
-								<p>08:30</p>
-								<p>17:30</p>
-							</div>
-							<div class="contactsMain__dates__item">
-								<span>Ср</span>
-								<p>08:30</p>
-								<p>17:30</p>
-							</div>
-							<div class="contactsMain__dates__item">
-								<span>Чт</span>
-								<p>08:30</p>
-								<p>17:30</p>
-							</div>
-							<div class="contactsMain__dates__item">
-								<span>Пт</span>
-								<p>08:30</p>
-								<p>17:30</p>
-							</div>
-							<div class="contactsMain__dates__item">
-								<span>Сб</span>
-								<p>Выходной
-									день</p>
-							</div>
-							<div class="contactsMain__dates__item">
-								<span>Вс</span>
-								<p>Выходной
-									день</p>
-							</div>
+							{% endfor %}
 							<a href class="contactsMain__dates__item contactsMain__dates__route row">
 								<span>Проложить<br>
 									маршрут<br>
@@ -123,136 +105,15 @@
 							<img src="/static/img/map2.png" alt="">
 						</div>
 					</div>
-					<div class="contactsMain__mapItem">
-						<div class="contactsMain__title">
-							Москва
-						</div>
-						<div class="contactsMain__dates row">
-							<div class="contactsMain__dates__item">
-								<span>Пн</span>
-								<p>08:30</p>
-								<p>17:30</p>
-							</div>
-							<div class="contactsMain__dates__item">
-								<span>Вт</span>
-								<p>08:30</p>
-								<p>17:30</p>
-							</div>
-							<div class="contactsMain__dates__item">
-								<span>Ср</span>
-								<p>08:30</p>
-								<p>17:30</p>
-							</div>
-							<div class="contactsMain__dates__item">
-								<span>Чт</span>
-								<p>08:30</p>
-								<p>17:30</p>
-							</div>
-							<div class="contactsMain__dates__item">
-								<span>Пт</span>
-								<p>08:30</p>
-								<p>17:30</p>
-							</div>
-							<div class="contactsMain__dates__item">
-								<span>Сб</span>
-								<p>Выходной
-									день</p>
-							</div>
-							<div class="contactsMain__dates__item">
-								<span>Вс</span>
-								<p>Выходной
-									день</p>
-							</div>
-							<a href class="contactsMain__dates__item contactsMain__dates__route row">
-								<span>Проложить<br>
-									маршрут<br>
-									на карте</span>
-								<div class="contactsMain__dates__route__right">
-									<svg width="44" height="44" viewBox="0 0 44 44" fill="none"
-										xmlns="http://www.w3.org/2000/svg">
-										<path
-											d="M34.375 38.5C36.6532 38.5 38.5 36.6532 38.5 34.375C38.5 32.0968 36.6532 30.25 34.375 30.25C32.0968 30.25 30.25 32.0968 30.25 34.375C30.25 36.6532 32.0968 38.5 34.375 38.5Z"
-											stroke="#243228" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-										<path
-											d="M12.375 9.625H28.875C30.3337 9.625 31.7326 10.2045 32.7641 11.2359C33.7955 12.2674 34.375 13.6663 34.375 15.125C34.375 16.5837 33.7955 17.9826 32.7641 19.0141C31.7326 20.0455 30.3337 20.625 28.875 20.625H12.375C10.5516 20.625 8.80295 21.3493 7.51364 22.6386C6.22433 23.928 5.5 25.6766 5.5 27.5C5.5 29.3234 6.22433 31.072 7.51364 32.3614C8.80295 33.6507 10.5516 34.375 12.375 34.375H30.25"
-											stroke="#243228" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-									</svg>
-								</div>
-							</a>
-						</div>
-						<div class="contactsMain__map">
-							<img src="/static/img/map2.png" alt="">
-						</div>
-					</div>
-					<div class="contactsMain__mapItem">
-						<div class="contactsMain__title">
-							Санкт-Петербург
-						</div>
-						<div class="contactsMain__dates row">
-							<div class="contactsMain__dates__item">
-								<span>Пн</span>
-								<p>08:30</p>
-								<p>17:30</p>
-							</div>
-							<div class="contactsMain__dates__item">
-								<span>Вт</span>
-								<p>08:30</p>
-								<p>17:30</p>
-							</div>
-							<div class="contactsMain__dates__item">
-								<span>Ср</span>
-								<p>08:30</p>
-								<p>17:30</p>
-							</div>
-							<div class="contactsMain__dates__item">
-								<span>Чт</span>
-								<p>08:30</p>
-								<p>17:30</p>
-							</div>
-							<div class="contactsMain__dates__item">
-								<span>Пт</span>
-								<p>08:30</p>
-								<p>17:30</p>
-							</div>
-							<div class="contactsMain__dates__item">
-								<span>Сб</span>
-								<p>Выходной
-									день</p>
-							</div>
-							<div class="contactsMain__dates__item">
-								<span>Вс</span>
-								<p>Выходной
-									день</p>
-							</div>
-							<a href class="contactsMain__dates__item contactsMain__dates__route row">
-								<span>Проложить<br>
-									маршрут<br>
-									на карте</span>
-								<div class="contactsMain__dates__route__right">
-									<svg width="44" height="44" viewBox="0 0 44 44" fill="none"
-										xmlns="http://www.w3.org/2000/svg">
-										<path
-											d="M34.375 38.5C36.6532 38.5 38.5 36.6532 38.5 34.375C38.5 32.0968 36.6532 30.25 34.375 30.25C32.0968 30.25 30.25 32.0968 30.25 34.375C30.25 36.6532 32.0968 38.5 34.375 38.5Z"
-											stroke="#243228" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-										<path
-											d="M12.375 9.625H28.875C30.3337 9.625 31.7326 10.2045 32.7641 11.2359C33.7955 12.2674 34.375 13.6663 34.375 15.125C34.375 16.5837 33.7955 17.9826 32.7641 19.0141C31.7326 20.0455 30.3337 20.625 28.875 20.625H12.375C10.5516 20.625 8.80295 21.3493 7.51364 22.6386C6.22433 23.928 5.5 25.6766 5.5 27.5C5.5 29.3234 6.22433 31.072 7.51364 32.3614C8.80295 33.6507 10.5516 34.375 12.375 34.375H30.25"
-											stroke="#243228" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-									</svg>
-								</div>
-							</a>
-						</div>
-						<div class="contactsMain__map">
-							<img src="/static/img/map2.png" alt="">
-						</div>
-					</div>
+					{% endfor %}
 				</div>
 			</div>
 			<div class="contactsMain__block">
 				<div class="contactsMain__sub">
 					Электронная почта
 				</div>
-				<a href="mailto:" class="contactsMain__contact">
-					info@leadertrade.ru
+				<a href="mailto:{{main_shop.email}}" class="contactsMain__contact">
+					{{main_shop.email}}
 				</a>
 				<div class="contactsMain__descr">
 					Напишите нам свой вопрос

@@ -84,8 +84,8 @@ class Worktime(PKIDMixin):
         on_delete=models.CASCADE,
         verbose_name=_("Магазин"),
     )
-    day_of_week = EnumChoiceField(
-        DayOfWeek, default=DayOfWeek.MONDAY, verbose_name=_("День недели")
+    day_of_week = models.IntegerField(
+        choices=DayOfWeek.choices, default=DayOfWeek.MONDAY, verbose_name=_("День недели")
     )
     start_time = models.TimeField(verbose_name=_("Время начала работы"))
     end_time = models.TimeField(verbose_name=_("Время завершения работы"))
@@ -93,3 +93,4 @@ class Worktime(PKIDMixin):
     class Meta:
         verbose_name = _("Время Работы")
         verbose_name_plural = _("Время Работы")
+        ordering = ['day_of_week']

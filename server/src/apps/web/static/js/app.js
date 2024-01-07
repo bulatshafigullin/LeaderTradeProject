@@ -118,11 +118,12 @@ const swiper3 = new Swiper('.promo-slider', {
 	},
 });
 
-
-const swiper4 = new Swiper('.menu-slider', {
-	slidesPerView: 'auto',
-	spaceBetween: 15,
-});
+if (window.innerWidth < 1024) {
+	const swiper4 = new Swiper('.menu-slider', {
+		slidesPerView: 'auto',
+		spaceBetween: 15,
+	});
+}
 
 const swiper5 = new Swiper('.about-reviews-slider', {
 	slidesPerView: 3,
@@ -287,3 +288,8 @@ twinspark.func({
 		document.querySelector(sel).dispatchEvent(event)
 	}
 })
+
+function setPageMeta(name, val) {
+	var m = document.querySelector('meta[name="'+name+'"]');
+	m && m.setAttribute("content", val);
+}

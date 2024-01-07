@@ -48,14 +48,14 @@ class DocumentType(str, Enum):
     INVOICE = "invoice"
 
 
-class DayOfWeek(str, Enum):
-    MONDAY = "Понедельник"
-    TUESDAY = "Вторник"
-    WEDNESDAY = "Среда"
-    THURSDAY = "Четверг"
-    FRIDAY = "Пятница"
-    SATURDAY = "Суббота"
-    SUNDAY = "Воскресенье"
+class DayOfWeek(models.IntegerChoices):
+    MONDAY = 1, "Понедельник"
+    TUESDAY = 2, "Вторник"
+    WEDNESDAY = 3, "Среда"
+    THURSDAY = 4, "Четверг"
+    FRIDAY = 5, "Пятница"
+    SATURDAY = 6, "Суббота"
+    SUNDAY = 7, "Воскресенье"
 
 
 class ProductType(str, Enum):

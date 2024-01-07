@@ -104,7 +104,7 @@ def catalog(r, slug=None, pathfilter={}, title=None):
 
     pages = Paginator(products, PAGE_SIZE)
     page = pages.get_page(int(r.GET.get("page", 1)))
-    if in_spark(r):
+    if ts := in_spark(r):
         return render(r, "spark/catalog.html", locals())    
     return render(r, "catalog.html", locals())
 
@@ -222,6 +222,9 @@ def shinka(r):
 
 
 def contacts(r):
+    from locations.models import Shop
+    from src.other.enums import DayOfWeek
+    shops = Shop.objects.all()
     return render(r, "contacts.html", locals())
 
 
