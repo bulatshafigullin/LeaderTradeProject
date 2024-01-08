@@ -1,4 +1,11 @@
 <div class="js-products">
+	{% if ts %}
+    <script>
+		document.title = "{{seo_title}}"
+		// setPageMeta("description", "{{seo_description}}")
+		// setPageMeta("keywords", "{{seo_keywords}}")
+	</script>
+	{% endif %}
 	<div class="grid-items">
 		{% for p in page %}
 			{% include "_product_item.html" %}

@@ -469,17 +469,7 @@ section {
 .main-menu__find svg {
   margin-left: 23px;
 }
-.main-menu__cart {
-  background: #F1F3F7;
-  border-radius: 50px;
-  width: 46px;
-  height: 46px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: relative;
-  margin-right: 8px;
-}
+@import "cart";
 .main-menu__tel {
   font-weight: 500;
   font-size: 18px;
@@ -634,104 +624,7 @@ section {
   width: 150px;
 }
 
-.items .item-heart {
-  position: absolute;
-  top: 0px;
-  cursor: pointer;
-  right: 0;
-  background: #243228;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 50px;
-  padding: 10px;
-}
-.items .item-heart:hover {
-  transform: scale(1.05);
-}
-.items__one {
-  color: #243228;
-  position: relative;
-}
-.items .item-top {
-  position: relative;
-  margin-bottom: 11px;
-}
-.items .item-top img {
-  width: 207px;
-  height: 207px;
-  object-fit: contain;
-}
-.items .item-shild {
-  position: absolute;
-  left: 15px;
-  top: -5px;
-  transform-origin: left;
-  transform: rotate(90deg);
-  padding: 5px 12px;
-  border-radius: 50px;
-  color: #fff;
-  text-transform: uppercase;
-  font-size: 10px;
-  font-style: normal;
-  font-weight: 700;
-}
-.items .item-shild.green {
-  background: #21AB4A;
-}
-.items .item-shild.red {
-  background: #E70C0C;
-}
-.items .item-label {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  filter: drop-shadow(2px 2px 14px rgba(0, 0, 0, 0.1));
-  background: #fff;
-  width: 30px;
-  height: 30px;
-  border-radius: 50px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-.items .item-info {
-  margin-bottom: 12px;
-}
-.items .item-info span {
-  color: #E70C0C;
-  font-size: 10px;
-  font-weight: 500;
-  margin-bottom: 9px;
-  display: block;
-}
-.items .item-info p {
-  font-size: 12px;
-}
-.items .item-cart {
-  background: #21AB4A;
-  width: 46px;
-  height: 46px;
-  border-radius: 50px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-right: 10px;
-}
-.items .item-old-price {
-  text-decoration: line-through;
-  font-size: 14px;
-}
-.items .item-price-main {
-  font-size: 20px;
-}
-.items .item-price-color {
-  color: #E70C0C;
-}
-.items .item-bottom {
-  align-items: center;
-}
-
+@import "items";
 .slider-left {
   position: absolute;
   left: -50px;

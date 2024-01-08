@@ -278,6 +278,24 @@ if (slider) {
 
 }
 
+function loadCart() {
+	var bin = localStorage.getItem('cart')
+	var cart = null
+	if (bin) {
+		cart = JSON.parse(bin)
+	} else {
+		cart = {}
+	}
+	return cart
+}
+
+function showCartCount(cart) {
+	if (cart.el) {
+		cart = loadCart()
+	} 
+	console.log('cart', cart)
+	document.querySelector('.cart-number').innerText = Object.values(cart).reduce((a, b) => a + b, 0);
+}
 
 twinspark.func({
 	"openFancy": (o) => {
@@ -286,6 +304,24 @@ twinspark.func({
 	"fire": (eventName, sel, o) => {
 		var event = new Event(eventName);
 		document.querySelector(sel).dispatchEvent(event)
+	},
+	"addToCart": (o) => {
+		var button = $(o.el)
+		button.addClass('shake');
+		    setTimeout(function(){
+		      button.removeClass('shake');
+		    },1000)
+
+		var cart = loadCart()
+		var id = o.el.dataset.id
+		if (cart.id) {
+			cart.id = cart.id + 1
+		} else {
+			cart.id = 1
+		}
+		localStorage.setItem("cart", JSON.stringify(cart))
+		showCartCount(cart)
+
 	}
 })
 

@@ -1,7 +1,7 @@
 from datetime import datetime, timedelta
 from django.shortcuts import render, get_object_or_404
 from django.core.paginator import Paginator
-from django.db.models import Min, Max, F
+from django.db.models import Min, Max, F, Count
 from catalog.models import Brand
 from src.other.enums import RimType
 from products.models import Product, ProductType
@@ -27,7 +27,7 @@ def home(r):
 
 
 def catalog(r, slug=None, pathfilter={}, title=None):
-    products = Product.objects.exclude(rest__lt=1).order_by('pk')
+    products = Product.objects.exclude(rest__lt=1).order_by("pk")
     try:
         ptype = ProductType[slug.upper()]
     except KeyError:
@@ -35,7 +35,7 @@ def catalog(r, slug=None, pathfilter={}, title=None):
     if ptype:
         products = products.filter(type=ptype)
     else:
-        if slug == 'sale':
+        if slug == "sale":
             products = products.filter(current_price__lt=F("price"))
         else:
             products = Product.objects.none()
@@ -50,14 +50,17 @@ def catalog(r, slug=None, pathfilter={}, title=None):
             for t in RimType
         }
     decl_filter_of_types = {}
-    if slug == 'rims':
+    if slug == "rims":
         decl_filter_of_types = {
             "size": {
                 "title": "Диаметр (D)",
                 "type": "single",
                 "vals": [
                     {"title": "R" + str(b["size"]), "id": b["size"]}
-                    for b in products.values("size").exclude(size=None).order_by().distinct()
+                    for b in products.values("size")
+                    .exclude(size=None)
+                    .order_by()
+                    .distinct()
                 ],
             },
             "unite_pcd": {
@@ -80,7 +83,7 @@ def catalog(r, slug=None, pathfilter={}, title=None):
 
     path_dict = {}
     if pathfilter:
-        for conv,v in pathfilter.items():
+        for conv, v in pathfilter.items():
             path_dict[conv.filter_name] = v
 
     qd = combined_qdict(r, path_dict)
@@ -89,23 +92,33 @@ def catalog(r, slug=None, pathfilter={}, title=None):
         products = filterset.qs
 
     price_agg = products.aggregate(min_price=Min("price"), max_price=Max("price"))
+    brands_in_products = {
+        q["brand_id"]: q["c"]
+        for q in products.values("brand_id").order_by().annotate(c=Count("pk"))
+    }
     decl_filter_common = {
         "price": {
             "title": "Цена",
             "type": "range",
-            "vals": [int(price_agg["min_price"] or 0), int(price_agg["max_price"] or 0)+1],
+            "vals": [
+                int(price_agg["min_price"] or 0),
+                int(price_agg["max_price"] or 0) + 1,
+            ],
         },
         "brands": {
             "title": "Производитель",
             "type": "checkbox",
-            "vals": [{"title": b.title, "id": b.pk} for b in Brand.objects.all()],
+            "vals": [
+                {"title": b.title, "id": b.pk, "count": brands_in_products[b.pk]}
+                for b in Brand.objects.filter(pk__in=brands_in_products.keys()).order_by('title')
+            ],
         },
     }
 
     pages = Paginator(products, PAGE_SIZE)
     page = pages.get_page(int(r.GET.get("page", 1)))
     if ts := in_spark(r):
-        return render(r, "spark/catalog.html", locals())    
+        return render(r, "spark/catalog.html", locals())
     return render(r, "catalog.html", locals())
 
 
@@ -224,6 +237,7 @@ def shinka(r):
 def contacts(r):
     from locations.models import Shop
     from src.other.enums import DayOfWeek
+
     shops = Shop.objects.all()
     return render(r, "contacts.html", locals())
 

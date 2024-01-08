@@ -19,7 +19,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.css" />
     {% block css %}
     {% endblock css %}
-    <link rel="stylesheet" href="/static/css/style.min.css">
+    <link rel="stylesheet" href="/static/css/style.css">
 </head>
 
 <body>
@@ -144,7 +144,7 @@
 				<path d="M9 9H21" stroke="#243228" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round"
 					stroke-linejoin="round" />
 			</svg>
-			<div class="cart-number">3</div>
+			<div class="cart-number" ts-action="showCartCount" ts-trigger="load">3</div>
 		</a>
 	</div>
 </div>

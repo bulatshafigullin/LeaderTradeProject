@@ -77,7 +77,6 @@ def width2_filter(queryset, name, value):
 
 
 def rim_type_filter(queryset, name, value):
-    print(RimType[value.upper()])
     return queryset.filter(rim_type=RimType[value.upper()])
 
 
@@ -94,6 +93,8 @@ class RimFilter(django_filters.FilterSet):
     size = django_filters.NumberFilter(field_name="size")
     dia = django_filters.NumberFilter(lookup_expr="gte")
     dia_min = django_filters.NumberFilter(field_name="dia", lookup_expr="gte")
+    price_min = django_filters.NumberFilter(field_name="price", lookup_expr="gte")
+    price_max = django_filters.NumberFilter(field_name="price", lookup_expr="lte")
     width2 = django_filters.CharFilter(field_name="width2", method=width2_filter)
     width = django_filters.NumberFilter(field_name="width", method=width_filter)
     wheels_width_max = django_filters.NumberFilter(lookup_expr="lte", field_name="width")
