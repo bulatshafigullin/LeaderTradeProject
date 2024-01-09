@@ -147,6 +147,9 @@ class Product(PKIDMixin, TimeStampedMixin):
         null=True,
         blank=True,
     )
+    @property
+    def pack_price(self):
+        return (self.current_price or self.price) * 4
     discount = models.DecimalField(
         max_digits=12,
         decimal_places=5,
