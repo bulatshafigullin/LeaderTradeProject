@@ -11,14 +11,14 @@ from cache_memoize import cache_memoize
 
 
 class RimRadiusConverter:
-    regex = "wheels-r([0-9]+)"
+    regex = "r([0-9]+)"
     filter_name = "size"
 
     def to_python(self, value):
-        return int(value.replace("wheels-r", ""))
+        return int(value.replace("r", ""))
 
     def to_url(self, value):
-        return "wheels-r" + str(value)
+        return "r" + str(value)
 
     def humanize(self, value):
         return "R" + str(value)
@@ -424,6 +424,22 @@ RimPathParams = {
     ImportRuleConverter.filter_name: ImportRuleConverter(),
 }
 
+SIMILARITY_PARAMS = {
+    ProductType.RIMS: [
+        RimRadiusConverter(),
+        RimPcdConverter(),
+        DiaConverter(),
+        RimWidthConverter(),
+        EtConverter(),
+    ],
+    ProductType.TIRES: [
+        TireWidthConverter(),
+        ProfileConverver(),
+        TireSizeConverver(),
+        TireSpikeConverver(),
+        TireSeasonConverver(),
+    ]
+}
 
 class PathConverter:
     regex = "([\w\-\d\/]+)"

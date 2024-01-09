@@ -1,0 +1,108 @@
+<form id="js-cart-items" action="" method="GET">
+	<h2>В корзине {{len_data}} товара</h2>
+	{% for p in products %}
+	<div class="cart__left__item row">
+		<img src="{{p.image.name|remq}}" alt="" class="cart__left__item__img">
+		<div class="cart__left__item__center">
+			<div class="cart__left__item__top row">
+				{% if p.rest == 0 %}
+				    <div class="cart__left__item__plate grey">
+					нет в наличии
+				</div>
+				{% endif %}
+				{% if p.current_price and p.price and p.current_price < p.price %}
+				<div class="cart__left__item__plate red">
+					скидка
+				</div>
+				{% endif %}
+				{% if p.rest %}
+				<div class="cart__left__item__plate black">
+					в наличии {{p.rest}} шт
+				</div>
+				{% endif %}
+			</div>
+			<div class="cart__left__title">
+				{{p.get_type_display()}} {{p.title}}
+			</div>
+			<div class="cart__left__descr">
+				{% if p.rim_type %}
+				    {{p.get_rim_type_display()}}
+				{% endif %},
+				{{p.color}}
+			</div>
+			<div class="cart__left__price row">
+				{% if p.current_price and p.price and p.current_price < p.price %}
+				   	<div class="cart__left__oldPrice">
+						{{p.price|intcomma}}
+					</div>
+					<div class="cart__left__newPrice">
+						{{p.current_price|intcomma}} ₽
+					</div>
+				{% else %}
+				<div class="">
+					{{(p.current_price or p.price)|int|intcomma}} ₽
+				</div>
+				{% endif %}
+				
+			</div>
+		</div>
+		<div class="cart__left__item__right">
+			<div class="cart__left__item__right__top row">
+				<div class="like">
+					<svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+						<path
+							d="M10.4419 17.3867L16.7726 11.056C18.3281 9.50054 18.5576 6.94151 17.0855 5.3068C16.7168 4.89615 16.2683 4.56493 15.7673 4.33335C15.2664 4.10176 14.7235 3.97468 14.1718 3.95984C13.6201 3.94501 13.0712 4.04273 12.5585 4.24706C12.0458 4.45138 11.5801 4.75802 11.1899 5.14826L10 6.33813L8.97267 5.31079C7.41717 3.75529 4.85814 3.5258 3.22343 4.99783C2.81277 5.36655 2.48155 5.81507 2.24997 6.31603C2.01839 6.81699 1.8913 7.35988 1.87647 7.91158C1.86163 8.46327 1.95936 9.01221 2.16368 9.52489C2.368 10.0376 2.67464 10.5032 3.06488 10.8935L9.55806 17.3867C9.67527 17.5039 9.83424 17.5697 10 17.5697C10.1658 17.5697 10.3247 17.5039 10.4419 17.3867Z"
+							stroke="#243228" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+					</svg>
+
+				</div>
+				<div class="cart__left__calc row">
+					<div class="cart__left__calc__minus" ts-req="/cart/" ts-data="action=remove&id={{p.pk}}&cartData={{data_json}}" ts-target="#js-cart-items">
+						<svg width="14" height="14" viewBox="0 0 14 14" fill="none"
+							xmlns="http://www.w3.org/2000/svg">
+							<path d="M2.1875 7H11.8125" stroke="#243228" stroke-width="1.5" stroke-linecap="round"
+								stroke-linejoin="round" />
+						</svg>
+					</div>
+					<input type="number" class="cart__left__calc__num" value="{{data[p.pk]}}">
+					<div class="cart__left__calc__plus" ts-req="/cart/" ts-data="action=add&id={{p.pk}}&cartData={{data_json}}" ts-target="#js-cart-items">
+						<svg width="14" height="14" viewBox="0 0 14 14" fill="none"
+							xmlns="http://www.w3.org/2000/svg">
+							<path d="M2.1875 7H11.8125" stroke="white" stroke-width="1.5" stroke-linecap="round"
+								stroke-linejoin="round" />
+							<path d="M7 2.1875V11.8125" stroke="white" stroke-width="1.5" stroke-linecap="round"
+								stroke-linejoin="round" />
+						</svg>
+					</div>
+				</div>
+			</div>
+			{% if p.rest >= data[p.pk] %}
+			    {% if data[p.pk] %}
+			    <div class="cart__left__item__right__bottom">
+			    	<div class="cart__left__number">4 шт</div>
+			    	<div class="cart__left__calcPrice">
+			    		{{p.pack_price|int|intcomma}} ₽
+			    	</div>
+			    </div>
+			    {% endif %}
+			{% else %}
+			<div class="cart__left__item__right__bottom">
+				<a href="{{similar_urls[p.pk]}}" class="cart__analog__btn btn">аналогичные товары</a>
+			</div>
+			{% endif %}
+
+		</div>
+	</div>
+	{% endfor %}
+	{% if not can_proceed %}
+	    Указанного количества товара нет в наличии, нужно убрать товар из корзины и поискать аналогичные
+	{% endif %}
+</form>
+
+<div class="cart__right__bottom__left" ts-swap-push=".cart__right__bottom__left">
+	<p>Итого</p>
+	<span>{{total|int|intcomma}} ₽</span>
+</div>
+
+
+<a href="{% if can_proceed %}/checkout/{% endif %}" class="btn" ts-swap-push=".cart__right .btn">Оформить заказ</a>

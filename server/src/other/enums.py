@@ -64,6 +64,12 @@ class ProductType(str, Enum):
     ACCESSORY = "Аксессуары"
 
 
+class ProductTypeSlug(str, Enum):
+    RIMS = "diski"
+    TIRES = "shiny"
+    ACCESSORY = "aksessuary" 
+
+
 class ProductColor(str, Enum):
     GRAY = "gray"
     BLACK = "black"

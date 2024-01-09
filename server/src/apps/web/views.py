@@ -1,3 +1,4 @@
+import json
 from datetime import datetime, timedelta
 from django.shortcuts import render, get_object_or_404
 from django.core.paginator import Paginator
@@ -6,7 +7,7 @@ from catalog.models import Brand
 from src.other.enums import RimType
 from products.models import Product, ProductType
 from web.filters import RimFilter
-from web.util import combined_qdict, in_spark
+from web.util import combined_qdict, in_spark, make_similar_url
 
 
 PAGE_SIZE = 20
@@ -243,6 +244,34 @@ def contacts(r):
 
 
 def cart(r):
+    if in_spark(r):
+        if r.GET.get('cartData'):
+            data = json.loads(r.GET.get('cartData'))
+            len_data = len(data)
+            data = {int(d): data[d] for d in data}
+
+        if r.GET.get('action') == 'add':
+            product = Product.objects.get(pk=r.GET.get('id'))
+            if data[product.pk] < product.rest:
+                data[product.pk] += 1
+        if r.GET.get('action') == 'remove':
+            id = int(r.GET.get('id'))
+            if data[id] > 0:
+                data[id] -= 1
+
+        data_json = json.dumps(data)
+        products = Product.objects.filter(pk__in=data.keys())
+        can_proceed = True
+        similar_urls = {}
+        total = 0
+        for p in products:
+            total += (p.current_price or p.price) * data[p.pk]
+            if p.rest < data[p.pk]:
+                similar_urls[p.pk] = make_similar_url(p)
+                can_proceed = False
+        if total == 0:
+            can_proceed = False
+        return render(r, "spark/cart_products.html", locals())
     return render(r, "cart1.html", locals())
 
 

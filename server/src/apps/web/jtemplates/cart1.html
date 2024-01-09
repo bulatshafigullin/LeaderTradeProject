@@ -13,136 +13,22 @@
 	</div>
 </ul>
 
+<script type="text/javascript">
+	document.addEventListener('DOMContentLoaded', function() {
+		twinspark.func({
+			"initCartProducts": (o)=> {
+				o.el.querySelector("#cartData").value = localStorage.getItem('cart')
+				// twinspark.action(o.el, o.e, 'req', loadCart(), "")
+			}
+		})
+	});	
+</script>
 <section class="cart">
 	<div class="container">
 		<div class="cart__wrapper row">
-			<div class="cart__left">
-				<h2>В корзине 4 товара</h2>
-				<div class="cart__left__item row">
-					<img src="assets/img/it1.png" alt="" class="cart__left__item__img">
-					<div class="cart__left__item__center">
-						<div class="cart__left__item__top row">
-							<div class="cart__left__item__plate red">
-								скидка
-							</div>
-							<div class="cart__left__item__plate black">
-								в наличии
-							</div>
-						</div>
-						<div class="cart__left__title">
-							Колесный диск INFORGED IFG34 9.5xR19 5x112 ET42 DIA66.6 серебристый
-						</div>
-						<div class="cart__left__descr">
-							Литой, Серебристый
-						</div>
-						<div class="cart__left__price row">
-							<div class="cart__left__oldPrice">
-								18 900
-							</div>
-							<div class="cart__left__newPrice">
-								16 400 ₽
-							</div>
-						</div>
-					</div>
-					<div class="cart__left__item__right">
-						<div class="cart__left__item__right__top row">
-							<div class="like">
-								<svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-									<path
-										d="M10.4419 17.3867L16.7726 11.056C18.3281 9.50054 18.5576 6.94151 17.0855 5.3068C16.7168 4.89615 16.2683 4.56493 15.7673 4.33335C15.2664 4.10176 14.7235 3.97468 14.1718 3.95984C13.6201 3.94501 13.0712 4.04273 12.5585 4.24706C12.0458 4.45138 11.5801 4.75802 11.1899 5.14826L10 6.33813L8.97267 5.31079C7.41717 3.75529 4.85814 3.5258 3.22343 4.99783C2.81277 5.36655 2.48155 5.81507 2.24997 6.31603C2.01839 6.81699 1.8913 7.35988 1.87647 7.91158C1.86163 8.46327 1.95936 9.01221 2.16368 9.52489C2.368 10.0376 2.67464 10.5032 3.06488 10.8935L9.55806 17.3867C9.67527 17.5039 9.83424 17.5697 10 17.5697C10.1658 17.5697 10.3247 17.5039 10.4419 17.3867Z"
-										stroke="#243228" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-								</svg>
-
-							</div>
-							<div class="cart__left__calc row">
-								<div class="cart__left__calc__minus">
-									<svg width="14" height="14" viewBox="0 0 14 14" fill="none"
-										xmlns="http://www.w3.org/2000/svg">
-										<path d="M2.1875 7H11.8125" stroke="#243228" stroke-width="1.5" stroke-linecap="round"
-											stroke-linejoin="round" />
-									</svg>
-								</div>
-								<input type="number" class="cart__left__calc__num" value="1">
-								<div class="cart__left__calc__plus">
-									<svg width="14" height="14" viewBox="0 0 14 14" fill="none"
-										xmlns="http://www.w3.org/2000/svg">
-										<path d="M2.1875 7H11.8125" stroke="white" stroke-width="1.5" stroke-linecap="round"
-											stroke-linejoin="round" />
-										<path d="M7 2.1875V11.8125" stroke="white" stroke-width="1.5" stroke-linecap="round"
-											stroke-linejoin="round" />
-									</svg>
-								</div>
-							</div>
-						</div>
-						<div class="cart__left__item__right__bottom">
-							<div class="cart__left__number">4 шт</div>
-							<div class="cart__left__calcPrice">
-								65 600 ₽
-							</div>
-						</div>
-
-					</div>
-				</div>
-				<div class="cart__left__item row">
-					<img src="assets/img/it2.png" alt="" class="cart__left__item__img">
-					<div class="cart__left__item__center">
-						<div class="cart__left__item__top row">
-							<div class="cart__left__item__plate grey">
-								нет в наличии
-							</div>
-						</div>
-						<div class="cart__left__title">
-							Колесный диск INFORGED IFG34 9.5xR19 5x112 ET42 DIA66.6 серебристый
-						</div>
-						<div class="cart__left__descr">
-							Литой, Серебристый
-						</div>
-						<div class="cart__left__price row">
-							<div class="cart__left__oldPrice">
-								18 900
-							</div>
-							<div class="cart__left__newPrice">
-								16 400 ₽
-							</div>
-						</div>
-					</div>
-					<div class="cart__left__item__right">
-						<div class="cart__left__item__right__top row">
-							<div class="like">
-								<svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-									<path
-										d="M10.4419 17.3867L16.7726 11.056C18.3281 9.50054 18.5576 6.94151 17.0855 5.3068C16.7168 4.89615 16.2683 4.56493 15.7673 4.33335C15.2664 4.10176 14.7235 3.97468 14.1718 3.95984C13.6201 3.94501 13.0712 4.04273 12.5585 4.24706C12.0458 4.45138 11.5801 4.75802 11.1899 5.14826L10 6.33813L8.97267 5.31079C7.41717 3.75529 4.85814 3.5258 3.22343 4.99783C2.81277 5.36655 2.48155 5.81507 2.24997 6.31603C2.01839 6.81699 1.8913 7.35988 1.87647 7.91158C1.86163 8.46327 1.95936 9.01221 2.16368 9.52489C2.368 10.0376 2.67464 10.5032 3.06488 10.8935L9.55806 17.3867C9.67527 17.5039 9.83424 17.5697 10 17.5697C10.1658 17.5697 10.3247 17.5039 10.4419 17.3867Z"
-										stroke="#243228" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-								</svg>
-
-							</div>
-							<div class="cart__left__calc row">
-								<div class="cart__left__calc__minus">
-									<svg width="14" height="14" viewBox="0 0 14 14" fill="none"
-										xmlns="http://www.w3.org/2000/svg">
-										<path d="M2.1875 7H11.8125" stroke="#243228" stroke-width="1.5" stroke-linecap="round"
-											stroke-linejoin="round" />
-									</svg>
-								</div>
-								<input type="number" class="cart__left__calc__num" value="1">
-								<div class="cart__left__calc__plus">
-									<svg width="14" height="14" viewBox="0 0 14 14" fill="none"
-										xmlns="http://www.w3.org/2000/svg">
-										<path d="M2.1875 7H11.8125" stroke="white" stroke-width="1.5" stroke-linecap="round"
-											stroke-linejoin="round" />
-										<path d="M7 2.1875V11.8125" stroke="white" stroke-width="1.5" stroke-linecap="round"
-											stroke-linejoin="round" />
-									</svg>
-								</div>
-							</div>
-						</div>
-						<div class="cart__left__item__right__bottom">
-							<a href="" class="cart__analog__btn btn">аналогичные товары</a>
-						</div>
-
-					</div>
-				</div>
-			</div>
+			<form class="cart__left" ts-trigger="load" ts-action=" initCartProducts; req GET /cart/">
+				<input name='cartData' value="" id='cartData' type="hidden">
+			</form>
 			<div class="cart__right">
 				<form>
 					<div class="cart__right__title">
@@ -235,7 +121,7 @@
 					<div class="cart__right__bottom row">
 						<div class="cart__right__bottom__left">
 							<p>Итого</p>
-							<span>65 600 ₽</span>
+							<span>0 ₽</span>
 						</div>
 						<div class="cart__right__bottom__right row">
 							<svg width="46" height="46" viewBox="0 0 46 46" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -267,7 +153,7 @@
 								на следующем шаге</span>
 						</div>
 					</div>
-					<a href="/checkout" class="btn">Оформить заказ</a>
+					<a href="/checkout/" class="btn">Оформить заказ</a>
 				</form>
 			</div>
 		</div>
@@ -290,7 +176,7 @@
 			<div class="swiper-wrapper">
 				<a href="" class="swiper-slide items__one">
 					<div class="item-top">
-						<img src="assets/img/it1.png" alt="">
+						<img src="" alt="">
 						<div class="item-shild green">new</div>
 						<div class="item-label">
 							<svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -329,7 +215,7 @@
 				</a>
 				<a href="" class="swiper-slide items__one">
 					<div class="item-top">
-						<img src="assets/img/it2.png" alt="">
+						<img src="" alt="">
 						<div class="item-shild red">Скидка</div>
 						<div class="item-label">
 							<svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -367,7 +253,7 @@
 				</a>
 				<a href="" class="swiper-slide items__one">
 					<div class="item-top">
-						<img src="assets/img/it3.png" alt="">
+						<img src="" alt="">
 						<div class="item-label">
 							<svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
 								<path
@@ -404,7 +290,7 @@
 				</a>
 				<a href="" class="swiper-slide items__one">
 					<div class="item-top">
-						<img src="assets/img/it1.png" alt="">
+						<img src="" alt="">
 						<div class="item-shild green">new</div>
 						<div class="item-label">
 							<svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -443,7 +329,7 @@
 				</a>
 				<a href="" class="swiper-slide items__one">
 					<div class="item-top">
-						<img src="assets/img/it2.png" alt="">
+						<img src="" alt="">
 						<div class="item-shild red">Скидка</div>
 						<div class="item-label">
 							<svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -481,7 +367,7 @@
 				</a>
 				<a href="" class="swiper-slide items__one">
 					<div class="item-top">
-						<img src="assets/img/it3.png" alt="">
+						<img src="" alt="">
 						<div class="item-label">
 							<svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
 								<path
@@ -518,7 +404,7 @@
 				</a>
 				<a href="" class="swiper-slide items__one">
 					<div class="item-top">
-						<img src="assets/img/it1.png" alt="">
+						<img src="" alt="">
 						<div class="item-shild green">new</div>
 						<div class="item-label">
 							<svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -557,7 +443,7 @@
 				</a>
 				<a href="" class="swiper-slide items__one">
 					<div class="item-top">
-						<img src="assets/img/it2.png" alt="">
+						<img src="" alt="">
 						<div class="item-shild red">Скидка</div>
 						<div class="item-label">
 							<svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -595,7 +481,7 @@
 				</a>
 				<a href="" class="swiper-slide items__one">
 					<div class="item-top">
-						<img src="assets/img/it3.png" alt="">
+						<img src="" alt="">
 						<div class="item-label">
 							<svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
 								<path

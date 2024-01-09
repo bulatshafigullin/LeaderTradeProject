@@ -16,12 +16,13 @@ Fancybox.bind("[data-fancybox]", {
 Fancybox.bind("[data-fancybox='gallery']", {
 });
 
-IMask(
-	document.getElementById('phone-mask'),
-	{
+var phoneEl = document.getElementById('phone-mask')
+if (phoneEl) {
+	IMask(phoneEl, {
 		mask: '+{7}(000)000-00-00'
-	}
-)
+	})
+}
+
 const swiper = new Swiper('.mainHeader__left', {
 	slidesPerView: 1,
 	spaceBetween: 10,
@@ -292,8 +293,7 @@ function loadCart() {
 function showCartCount(cart) {
 	if (cart.el) {
 		cart = loadCart()
-	} 
-	console.log('cart', cart)
+	}
 	document.querySelector('.cart-number').innerText = Object.values(cart).reduce((a, b) => a + b, 0);
 }
 
@@ -302,8 +302,10 @@ twinspark.func({
 		Fancybox.show([{ src: o.el.getAttribute("ts-target"), type: "inline" }]);
 	},
 	"fire": (eventName, sel, o) => {
+		console.log(sel, o)
 		var event = new Event(eventName);
-		document.querySelector(sel).dispatchEvent(event)
+		var r = document.querySelector(sel).dispatchEvent(event)
+		console.log(r)
 	},
 	"addToCart": (o) => {
 		var button = $(o.el)
@@ -314,15 +316,15 @@ twinspark.func({
 
 		var cart = loadCart()
 		var id = o.el.dataset.id
-		if (cart.id) {
-			cart.id = cart.id + 1
+		if (cart[id]) {
+			cart[id] = cart[id] + 1
 		} else {
-			cart.id = 1
+			cart[id] = 1
 		}
 		localStorage.setItem("cart", JSON.stringify(cart))
 		showCartCount(cart)
 
-	}
+	},
 })
 
 function setPageMeta(name, val) {
