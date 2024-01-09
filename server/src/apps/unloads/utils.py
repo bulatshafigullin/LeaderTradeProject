@@ -1,3 +1,4 @@
+from products.models import Category, Product
 from bulk_update.helper import bulk_update
 from django.db.models import Q
 from zeep import Client
@@ -10,9 +11,9 @@ from src.api.schemas.fortochki_schemas import (
 )
 from src.api.schemas.starco_schemas import StarcoRimSchema, StarcoTyreSchema
 from catalog.models import Brand
-from products.models import Category, Product
 from src.other.enums import ProductType, UnloadServiceType
 from src.utils.number_utils import float_or_none, int_or_none
+from src.utils.slug_utils import slugify
 
 
 def get_or_create_brand(title: str) -> Brand:
@@ -22,7 +23,7 @@ def get_or_create_brand(title: str) -> Brand:
     return brand
 
 
-def prepare_fortochki_rim(data: DiskPriceRestSchema, category) -> str | None:
+def prepare_fortochki_rim(data: DiskPriceRestSchema, category) -> Product | None:
     images = [data.img_big_my, data.img_big_pish, data.img_small]
     price_params = data.whpr.wh_price_rest[0]
     rest_count = sum([i.rest for i in data.whpr.wh_price_rest])
@@ -41,24 +42,24 @@ def prepare_fortochki_rim(data: DiskPriceRestSchema, category) -> str | None:
     return rim
 
 
-def create_fortochki_rim(data: DiskPriceRestSchema) -> str | None:
+def prepare_fortochki_tire(
+        data: TyrePriceRestSchema, category: Category
+) -> Product | None:
     images = [data.img_big_my, data.img_big_pish, data.img_small]
     price_params = data.whpr.wh_price_rest[0]
     rest_count = sum([i.rest for i in data.whpr.wh_price_rest])
-    category = Category.objects.filter(title=ProductType.RIMS).first()
-    rim = Product.objects.create(
+    category = Category.objects.filter(title=ProductType.TIRES).first()
+    tire = Product(
         title=data.name,
         category=category,
-        color=data.color,
         model=data.model,
         price=price_params.price_rozn,
         rest=rest_count,
-        type=ProductType.RIMS,
+        type=ProductType.TIRES,
         ext_data=data.model_dump(),
         unload_service=UnloadServiceType.fortochki,
     )
-    rim.save()
-    return data.code
+    return tire
 
 
 def update_fortochki_price_info(
@@ -84,32 +85,7 @@ def update_fortochki_rim_info(data: RimContainerSchema, rim: Product) -> None:
     return rim
 
 
-def create_fortochki_tire(data: TyrePriceRestSchema) -> str | None:
-    images = [data.img_big_my, data.img_big_pish, data.img_small]
-    price_params = data.whpr.wh_price_rest[0]
-    rest_count = sum([i.rest for i in data.whpr.wh_price_rest])
-    # external_data = {"code": data.code, "images": images, "price": price_params.price}
-    category = Category.objects.filter(title=ProductType.TIRES).first()
-    tire = Product.objects.create(
-        title=data.name,
-        category=category,
-        model=data.model,
-        price=price_params.price_rozn,
-        rest=rest_count,
-        type=ProductType.TIRES,
-        unload_service=UnloadServiceType.fortochki,
-    )
-    tire.ext_data = data.model_dump()
-    tire.save()
-    return data.code
-
-
 def update_fortochki_tire_info(data: TyreContainerSchema) -> None:
-    filter_query = Q(type=ProductType.TIRES) & Q(ext_data__code=data.code)
-    tire = Product.objects.filter(filter_query).first()
-    if tire is None:
-        return None
-    brand = get_or_create_brand(title=data.brand)
     tire.width = data.width
     tire.width2 = data.subwidth
     tire.season = data.season
@@ -117,7 +93,7 @@ def update_fortochki_tire_info(data: TyreContainerSchema) -> None:
     tire.load_index = data.load_index
     tire.speed_index = data.speed_index
     tire.brand = brand
-    tire.save()
+    return tire
 
 
 # STARCO
@@ -135,15 +111,18 @@ def _get_model_name_or_none(data) -> str:
         return split_list[1].strip()
 
 
-def starco_create_rim(data: StarcoRimSchema) -> None:
+def prepare_starco_rim(data: StarcoRimSchema, brands: dict, category: Category) -> Product | None:
     try:
+        brand = None
+        if data.Brand or data.Brand != "":
+            brand_name = data.Brand.upper()
+            brand = brands.get(brand_name, None)
         model = _get_model_name_or_none(data=data)
-        category = Category.objects.filter(title=ProductType.RIMS).first()
-        brand = get_or_create_brand(title=data.Brand)
-        Product.objects.create(
+        product = Product(
             category=category,
             type=ProductType.RIMS,
             title=data.full_name,
+            slug=data.slug,
             model=model,
             bolts=int_or_none(data.Bolt_hole_number),
             pcd=float_or_none(data.Bolt_hole_circle),
@@ -156,8 +135,10 @@ def starco_create_rim(data: StarcoRimSchema) -> None:
             ext_data=data.model_dump(),
             unload_service=UnloadServiceType.starco,
         )
+        return product
     except Exception as ex:
         print(ex)
+        return None
 
 
 def get_width_height_size(data: StarcoTyreSchema) -> tuple:
@@ -186,16 +167,19 @@ def get_width_height_size(data: StarcoTyreSchema) -> tuple:
         return None, None, None
 
 
-def starco_create_tire(data: StarcoTyreSchema) -> None:
+def prepare_starco_tire(data: StarcoTyreSchema, brands: dict, category: Category) -> Product | None:
     try:
+        brand = None
+        if data.Brand or data.Brand != "":
+            brand_name = data.Brand.upper()
+            brand = brands.get(brand_name, None)
         model = _get_model_name_or_none(data=data)
-        category = Category.objects.filter(title=ProductType.TIRES).first()
         width, height, size = get_width_height_size(data=data)
-        brand = get_or_create_brand(title=data.Brand)
-        Product.objects.create(
+        product = Product(
             category=category,
             type=ProductType.TIRES,
             title=data.full_name,
+            slug=data.slug,
             model=model,
             speed_index=data.SI_1,
             load_index=data.LI_1,
@@ -206,15 +190,17 @@ def starco_create_tire(data: StarcoTyreSchema) -> None:
             ext_data=data.model_dump(),
             unload_service=UnloadServiceType.starco,
         )
+        return product
     except Exception as ex:
         print(ex)
+        return None
 
 
 def update_price():
     pass
 
 
-def chunks(lst, n:int):
+def chunks(lst, n: int):
     """Yield successive n-sized chunks from lst."""
     for i in range(0, len(lst), n):
-        yield lst[i : i + n]
+        yield lst[i: i + n]
