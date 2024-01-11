@@ -18,11 +18,19 @@
 		twinspark.func({
 			"initCartProducts": (o)=> {
 				o.el.querySelector("#cartData").value = localStorage.getItem('cart')
-				// twinspark.action(o.el, o.e, 'req', loadCart(), "")
 			}
 		})
+
+		function onCartSubmit(e) {
+			e.preventDefault()
+			console.log(e.currentTarget)
+			return false
+		}
 	});	
 </script>
+<div class="pop-city" id="login-modal" style="max-width: 400px">
+	{% include "spark/login_modal.html" %}
+</div>
 <section class="cart">
 	<div class="container">
 		<div class="cart__wrapper row">
@@ -30,12 +38,12 @@
 				<input name='cartData' value="" id='cartData' type="hidden">
 			</form>
 			<div class="cart__right">
-				<form>
-					<div class="cart__right__title">
+				<form method="POST" onsubmit1="onCartSubmit(event)">
+					<div class="cart__right__title" data-fancybox data-src="#login-modal">
 						Доставка
 					</div>
 					<label class="cart__right__item cart__right__item--active">
-						<input type="radio" name="cart">
+						<input type="radio" name="delivery" value="self">
 						<div class="cart__right__item__text">
 							<p>Забрать из магазина</p>
 							<span>Сейчас и позже · бесплатно</span>
@@ -65,7 +73,7 @@
 						</div>
 					</label>
 					<label class="cart__right__item">
-						<input type="radio" name="cart">
+						<input type="radio" name="delivery" value="pvz">
 						<div class="cart__right__item__text">
 							<p>Забрать из точек выдачи</p>
 							<span>15 июня и позже · 300 ₽</span>
@@ -88,7 +96,7 @@
 						</div>
 					</label>
 					<label class="cart__right__item">
-						<input type="radio" name="cart">
+						<input type="radio" name="delivery" value="courier">
 						<div class="cart__right__item__text">
 							<p>Доставим курьером</p>
 							<span>12 июня и позже · 1 200 ₽</span>
@@ -153,7 +161,7 @@
 								на следующем шаге</span>
 						</div>
 					</div>
-					<a href="/checkout/" class="btn">Оформить заказ</a>
+					<input type="submit" class="btn"></input>
 				</form>
 			</div>
 		</div>

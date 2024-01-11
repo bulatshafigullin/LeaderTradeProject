@@ -16,7 +16,7 @@ gulp.task('compress', function () {
         .pipe(gulp.dest('./css'));
 });
 
-exports.buildStyles = buildStyles;
+exports.css = buildStyles;
 exports.watch = function () {
   gulp.watch('./css/**/*.scss', buildStyles);
 };
