@@ -1,4 +1,4 @@
-from src.apps.users.models import User
+from users.models import User
 from django.core.management.base import BaseCommand
 
 

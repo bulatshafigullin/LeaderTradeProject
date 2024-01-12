@@ -23,8 +23,8 @@ from src.api.requests.starco_requests import (
     get_starco_tyres,
 )
 from src.apps.catalog.models import Brand
-from src.apps.unloads.models import UnloadScheduler
-from src.apps.unloads.utils import (
+from unloads.models import UnloadScheduler
+from unloads.utils import (
     update_fortochki_price_info,
     update_fortochki_rim_info,
     update_fortochki_tire_info,

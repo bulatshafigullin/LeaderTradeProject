@@ -2,7 +2,7 @@ from django.utils.translation import gettext_lazy as _
 from phonenumber_field.serializerfields import PhoneNumberField
 from rest_framework import serializers
 
-from src.apps.users.models import User
+from users.models import User
 
 
 class UserSerializer(serializers.ModelSerializer):

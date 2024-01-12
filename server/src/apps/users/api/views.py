@@ -6,13 +6,13 @@ from rest_framework.request import Request
 from rest_framework.response import Response
 from rest_framework_simplejwt.tokens import RefreshToken
 
-from src.apps.users.api.serializers import (
+from users.api.serializers import (
     LoginSerializer,
     UserSerializer,
     VerifyCodeSerializer,
     LogoutSerializer,
 )
-from src.apps.users.tasks import broadcast_sms_task
+from users.tasks import broadcast_sms_task
 
 User = get_user_model()
 

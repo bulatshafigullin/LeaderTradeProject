@@ -9,7 +9,7 @@ from django.utils.translation import gettext_lazy as _
 from phonenumber_field.modelfields import PhoneNumberField
 
 from src.apps.base.models import TimeStampedMixin, PKIDMixin, Settings
-from src.apps.users.managers import UserManager
+from users.managers import UserManager
 from src.utils.sms_utils import generate_verification_code
 
 

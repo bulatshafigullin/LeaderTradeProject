@@ -1,5 +1,5 @@
 from django.urls import path, include
-from src.apps.users.api.views import (
+from users.api.views import (
     LoginAPIView,
     LogoutAPIView,
     VerifyCodeAPIView,
