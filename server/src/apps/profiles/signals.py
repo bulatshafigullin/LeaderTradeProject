@@ -7,12 +7,6 @@ from src.apps.profiles.models import Profile, LegalCard
 User = get_user_model()
 
 
-@receiver(post_save, sender=User)
-def create_profile_signal(sender, instance: User, created: bool, **kwargs) -> None:
-    if created:
-        Profile.objects.create(user=instance)
-
-
 @receiver(post_save, sender=Profile)
 def create_legal_card_signal(
     sender, instance: Profile, created: bool, **kwargs

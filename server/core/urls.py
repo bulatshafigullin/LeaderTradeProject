@@ -31,7 +31,7 @@ urlpatterns = [
         f"{API_URL}/health/",
         lambda request: HttpResponse("OK", content_type="text/plain"),
     ),
-    # path(f"{API_URL}/auth/", include("src.apps.users.api.urls")),
+    # path(f"{API_URL}/auth/", include("users.api.urls")),
     # path(f"{API_URL}/products/", include("products.api.urls")),
     # path(f"{API_URL}/profiles/", include("src.apps.profiles.api.urls")),
     # path(f"{API_URL}/locations/", include("locations.api.urls")),
