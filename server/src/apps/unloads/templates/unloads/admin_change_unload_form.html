@@ -1,0 +1,15 @@
+{% extends 'admin/change_form.html' %}
+
+
+
+{% block submit_buttons_bottom %}
+    {{ block.super }}
+
+    <div class="submit-row">
+        <input type="submit" value="Поставить задачу" name="_setup_task">
+        {% if original.task %}
+            Задача поставлена на "{{original.task.interval}}". Старт {{original.task.start_time}}
+        {% endif %}
+    </div>
+
+{% endblock %}
