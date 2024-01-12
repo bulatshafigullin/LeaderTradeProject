@@ -23,10 +23,12 @@
 					stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" />
 			</svg>
 		</a>
+		
+
 		<div class="promo-slider">
 			<div class="swiper-wrapper">
 				{% for pr in items %}
-				<div class="swiper-slide" {% if pr.pic %}style="background: url('{{pr.pic.url}}')" {% endif %} ts-req-after="openFancy" ts-req="/js/spark/promo/{{pr.id}}" ts-target="#promo1" ts-swap="inner">
+				<div class="swiper-slide" {% if pr.pic %}style="background: url('{{pr.pic.url}}')" {% endif %} ts-req-after="openFancy" ts-req="/js/spark/promo/{{pr.id}}/" ts-target="#promo1" ts-swap="inner">
 					<div class="promo-slider__left">
 						<div class="promo-slider__title">
 							{{pr.title}}

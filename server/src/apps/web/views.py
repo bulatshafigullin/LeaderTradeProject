@@ -7,7 +7,7 @@ from catalog.models import Brand
 from src.other.enums import RimType
 from products.models import Product, ProductType
 from web.filters import RimFilter
-from web.util import combined_qdict, in_spark, make_similar_url
+from web.util import combined_qdict, in_spark, make_similar_url, digits
 
 
 PAGE_SIZE = 20
@@ -272,6 +272,9 @@ def cart(r):
         if total == 0:
             can_proceed = False
         return render(r, "spark/cart_products.html", locals())
+    if r.method == "POST":
+
+        return redirect('/checkout/')
     return render(r, "cart1.html", locals())
 
 
@@ -286,3 +289,28 @@ def favorites(r):
 def product(r, slug):
     item = get_object_or_404(Product, slug=slug)
     return render(r, "product.html", locals())
+
+def login_spark(r):
+    from users.models import User
+    from users.tasks import broadcast_sms_task
+    if r.method == 'POST':
+        user = User.objects.get_or_create(phone_number=digits(r.POST['phone']))
+        verification = user.verification
+        verification.generate_token()
+        task_data = {
+            "phone_number": user.phone_number,
+            "verify_code": verification.token,
+        }
+        broadcast_sms_task.delay(task_data)
+        return render(r, 'spark/sms_modal.html', locals())
+    return render(r, 'spark/login_modal.html', locals())
+
+
+def check_sms_code(r):
+    from urllib.parse import urlparse
+    from django.http import HttpResponse
+    if r.method == "POST":
+        if urlparse(r.headers.get('referer')).path == 'cart':
+            return HttpResponse("<div><script>window.location = '/checkout/'</script></div>")
+    elif r.method == 'GET':
+        return render(r, 'spark/sms_modal.html', locals())

@@ -298,9 +298,16 @@ function showCartCount(cart) {
 }
 
 twinspark.func({
-	"openFancy": (o) => {
-		Fancybox.show([{ src: o.el.getAttribute("ts-target"), type: "inline" }]);
-	},
+	"openFancy": twinspark.arity(
+		(o) => {
+			console.log('no sel')
+			Fancybox.show([{ src: o.el.getAttribute("ts-target"), type: "inline" }]);
+		},
+		(sel, o) => {
+			console.log('sel', sel)
+			Fancybox.show([{ src: sel, type: "inline" }]);
+		}
+	),
 	"fire": (eventName, sel, o) => {
 		console.log(sel, o)
 		var event = new Event(eventName);

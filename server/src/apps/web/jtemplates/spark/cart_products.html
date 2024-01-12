@@ -102,8 +102,11 @@
 <div class="cart__right__bottom__left" ts-swap-push=".cart__right__bottom__left">
 	<p>Итого</p>
 	<span>{{total|int|intcomma}} ₽</span>
+	{{ csrf_input }}
+	<input type="hidden" name="cartData" value="{{data_json}}">
 </div>
 
 
 {# <a href="{% if can_proceed %}/checkout/{% endif %}" class="btn" ts-swap-push=".cart__right .btn">Оформить заказ</a> #}
+
 <input type="submit" class="btn" ts-swap-push=".cart__right .btn" value="Оформить заказ"></input>

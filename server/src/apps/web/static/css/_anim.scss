@@ -1,0 +1,29 @@
+.shake {
+    animation: shakeCart .4s ease-in-out forwards;
+    &:after {
+      content: "✓";
+      width: 46px;
+      height: 46px;
+      border-radius: 50px;
+      font-size: 30px;
+      line-height: 43px;
+      color: #fff;
+      background-color: #21AB4A;
+      position: absolute;
+    }
+  }
+
+@keyframes shakeCart {
+  25% {
+    transform:translateY(6px)
+  }
+  50% {
+    transform:translateY(-4px);
+  }
+  75% {
+    transform:translateY(2px);
+  }
+  100% {
+    transform:translateY(0);
+  }
+}

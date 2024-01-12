@@ -40,4 +40,6 @@ urlpatterns = [
     path("froala_editor/", include("froala_editor.urls")),
     path("js/spark/promo/<int:id>/", v.promo_spark),
     path("js/spark/review/<int:id>/", v.review_spark),
+    path("js/spark/login/", v.login_spark),
+    path("js/spark/check-sms-code/", v.check_sms_code),
 ]

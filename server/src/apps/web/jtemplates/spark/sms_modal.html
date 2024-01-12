@@ -1,0 +1,47 @@
+<div style="padding-left: 5%;">
+	<script type="text/javascript">
+	document.addEventListener('DOMContentLoaded', function() {
+		twinspark.func({
+			'checkSmsCode': function(o) {
+				var els = o.el.querySelectorAll("[name=smsCode]")
+				console.log(els)
+				els.forEach(function(input, idx) {
+					if (input.value && input.value.length == 1) {
+						if (idx+1 < els.length) {
+							els[idx+1].focus()
+						} else {
+							twinspark.action(o.el.closest('form'), new Event('checked'), 'req /js/spark/check-sms-code/').then(function(r, a, b) {
+								console.log(r, a, b)
+							})
+							// o.el.closest('form').submit()
+						}
+					}
+				})
+			}
+		})
+	});
+	</script>
+	<h2>Введите код</h2>
+	<div>
+		Мы отправили вам сообщение с кодом
+		для ввода в поле ниже на номер:<br>
+		+7 999 156-19-92  <a href="">Изменить номер</a>
+	</div>
+
+	<form action="/js/spark/check-sms-code" method="POST">
+		{{csrf_input}}
+		<div class="row row-space sms-code-inputs" style="margin: 20px 0;" ts-trigger="keyup" ts-action='checkSmsCode'>
+			<input type="" name="smsCode" placeholder="0">
+			<input type="" name="smsCode" placeholder="0">
+			<input type="" name="smsCode" placeholder="0">
+			<input type="" name="smsCode" placeholder="0">
+		</div>
+	</form>
+
+	<div class="" style="text-align: center; display: flex; flex-direction: column; align-content: center; width: 100%">
+		<button class="btn" style="width: auto">Получить код через</button>
+		<div style="margin-top: 5%; font-size: 10px;">
+			Согласен с <a href="/policy/" target="_blank" style="display: inline; color: grey">политикой конфиденциальности </a>
+		</div>
+	</div>
+</div>

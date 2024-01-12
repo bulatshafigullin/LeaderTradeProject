@@ -32,6 +32,9 @@ def in_spark(r):
     return r.headers.get("Accept") == "text/html+partial"
 
 
+def digits(string):
+    return "".join([s for s in string if s.isdigit()])
+
 def make_similar_url(product):
     from web.path_converter import RimPathParams, SIMILARITY_PARAMS
     slug = ProductTypeSlug[product.type.name].value

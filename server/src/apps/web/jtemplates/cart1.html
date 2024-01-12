@@ -18,19 +18,32 @@
 		twinspark.func({
 			"initCartProducts": (o)=> {
 				o.el.querySelector("#cartData").value = localStorage.getItem('cart')
+			}, 
+			"onCartSubmit": (o)=> {
+				var klass = 'cart__right__item--active'
+				var value = o.el.querySelector("[name=delivery]").checked
+				if (!value) {
+					var btn = o.el.querySelector("input.btn")
+					var err = o.el.querySelector('#form-err')
+					btn.classList.add("shake")
+					err.innerText = 'Выберите вид доставки'
+					twinspark.action(o.el, o.e, "delay 1s").then(r => {
+						btn.classList.remove('shake')
+						err.innerText = ''
+					})
+				} else {
+					if (o.el.dataset.auth == 'True') {
+						o.el.submit()
+					} else {
+						var btn = document.querySelector('.main-menu__profile')
+						btn.setAttribute("ts-data", "cart=1")
+						btn.click()
+					}
+				}
 			}
 		})
-
-		function onCartSubmit(e) {
-			e.preventDefault()
-			console.log(e.currentTarget)
-			return false
-		}
 	});	
 </script>
-<div class="pop-city" id="login-modal" style="max-width: 400px">
-	{% include "spark/login_modal.html" %}
-</div>
 <section class="cart">
 	<div class="container">
 		<div class="cart__wrapper row">
@@ -38,11 +51,11 @@
 				<input name='cartData' value="" id='cartData' type="hidden">
 			</form>
 			<div class="cart__right">
-				<form method="POST" onsubmit1="onCartSubmit(event)">
-					<div class="cart__right__title" data-fancybox data-src="#login-modal">
+				<form method="POST" ts-trigger='submit' ts-action="prevent; onCartSubmit" data-auth="{{r.user.is_authenticated}}">
+					<div class="cart__right__title">
 						Доставка
 					</div>
-					<label class="cart__right__item cart__right__item--active">
+					<label class="cart__right__item">
 						<input type="radio" name="delivery" value="self">
 						<div class="cart__right__item__text">
 							<p>Забрать из магазина</p>
@@ -161,7 +174,10 @@
 								на следующем шаге</span>
 						</div>
 					</div>
-					<input type="submit" class="btn"></input>
+					<div class="row align-center">
+						<input type="submit" class="btn"></input>
+						<div id='form-err' style="margin-left: 20px; color: #D2122E;"></div>
+					</div>
 				</form>
 			</div>
 		</div>

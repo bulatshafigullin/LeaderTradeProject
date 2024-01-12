@@ -4,16 +4,28 @@
 		Введите номер телефона указанный при регистрации вашего профиля.<br/>
 		На него мы отправим код в СМС
 	</div>
-
-	<label class="input" style="margin: 20px 0;">
-		<span>Номер телефона</span>
-		<input type="text" placeholder="+7 905 ...">
-	</label>
-	
-	<div class="" style="text-align: center; display: flex; flex-direction: column; align-content: center; width: 100%">
-		<button class="btn" style="width: auto">Выслать код</button>
-		<div style="margin-top: 5%; font-size: 10px;">
-			Согласен с <a href="/policy/" target="_blank" style="display: inline; color: grey">политикой конфиденциальности </a>
+	<form ts-req="" action="/js/spark/login/">
+		<label class="input" style="margin: 20px 0;">
+			<span>Номер телефона</span>
+			{{csrf_input}}
+			<input type="text" name="phone" placeholder="+7 905 ...">
+			<input type="hidden" name="cart" value="{{r.GET.get('cart', '')}}">
+		</label>
+		
+		<div class="" style="text-align: center; display: flex; flex-direction: column; align-content: center; width: 100%">
+			<button class="btn" style="width: auto">Получить код</button>
+			<div style="margin-top: 5%; font-size: 10px;">
+				Согласен с <a href="/policy/" target="_blank" style="display: inline; color: grey">политикой конфиденциальности </a>
+			</div>
 		</div>
-	</div>
+	</form>
+	{% if r.user.is_authenticated %}
+	    <script type="text/javascript">window.location = '/user/'</script>
+	
+	{% endif %}
+	<script type="text/javascript">
+		IMask(document.querySelector("#login-modal .input [name=phone]"), {
+			mask: '+{7}(000)000-00-00'
+		})
+	</script>
 </div>
