@@ -12,7 +12,7 @@ services:
       POSTGRES_PASSWORD: 1234
       POSTGRES_DB: leader_trade_db
     ports:
-      - "5431:5432"
+      - "127.0.0.1:5431:5432"
     healthcheck:
       test: [ "CMD", "pg_isready","-q","-d", "leader_trade_db", "-U","postgres" ]
       interval: 5s
@@ -28,7 +28,7 @@ services:
     volumes:
       - redis-data:/var/lib/redis
     ports:
-      - "6378:6379"
+      - "127.0.0.1:6378:6379"
     healthcheck:
       test: [ "CMD", "redis-cli","ping" ]
       interval: 5s
@@ -47,8 +47,8 @@ services:
       - RABBITMQ_DEFAULT_USER=guest
       - RABBITMQ_DEFAULT_PASS=guest
     ports:
-      - "5672:5672"
-      - "15672:15672"
+      - "127.0.0.1:5672:5672"
+      - "127.0.0.1:5672:5672"
     healthcheck:
       test: rabbitmq-diagnostics -q ping
       interval: 10s
@@ -66,7 +66,7 @@ services:
     env_file:
       - ./server/.env
     ports:
-      - "8100:8100"
+      - "127.0.0.1:8100:8100"
     healthcheck:
       test: [ "CMD","curl", "-f", "http://localhost:8100/api/v3/health/" ]
       interval: 20s
@@ -97,7 +97,7 @@ services:
       server:
         condition: service_healthy
     ports:
-      - "8200:8200"
+      - "127.0.0.1:8200:8200"
     networks:
       - global-net
   # NGINX
