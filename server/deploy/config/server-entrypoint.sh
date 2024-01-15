@@ -10,6 +10,20 @@ until python manage.py makemigrations base users profiles locations catalog inte
   sleep 2
 done
 
+cd src/apps/web/static
+echo "npm install"
+npm install
+echo "npx gulp css"
+npx gulp css
+echo "npx gulp compress"
+npx gulp compress
+cd ..
+cd ..
+cd ..
+cd ..
+
+
+
 python manage.py migrate
 
 python manage.py collectstatic --noinput
@@ -21,6 +35,8 @@ python manage.py createadmin
 python manage.py createcategory
 
 python manage.py createintervals
+
+
 
 echo "Start LeaderTrade Server..."
 
