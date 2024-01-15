@@ -123,7 +123,7 @@ TEMPLATES = [
             BASE_DIR / 'src/apps/web/jtemplates',
         ],
         'OPTIONS': {
-            "environment": 'src.apps.web.jinja.environment',
+            "environment": 'web.jinja.environment',
             'extensions': [
                 'wagtail.jinja2tags.core',
                 'wagtail.admin.jinja2tags.userbar',
