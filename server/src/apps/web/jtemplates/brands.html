@@ -16,17 +16,13 @@
 <section class="notfound">
 	<div class="container row">
 		<div class="footer__col">
-			<h1>Карта сайта</h1>
+			<h1>Бренды</h1>
 			<ul style="margin: 30px 0;">
-				<li>
-					<a href="/">Главная</a>
-				</li>
-				<li>
-					<a href="/shiny/">Шины</a>
-				</li>
-				<li>
-					<a href="/diski/">Диски</a>
-				</li>
+				{% for brand in rim_brands %}
+					<li>
+						<a href="/diski/{{brand.slug}}">Диски от {{brand.title}}</a>
+					</li>
+				{% endfor %}
 			</ul>
 			<a href="/" class="btn">Перейти на главную</a>
 		</div>

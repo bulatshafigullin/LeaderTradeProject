@@ -286,6 +286,12 @@ def favorites(r):
     return render(r, "favorites.html", locals())
 
 
+def brands(r):
+    rim_brand_ids = Product.objects.filter(rest__gt=0, type=ProductType.RIMS).values('brand_id').order_by('brand_id').distinct()
+    rim_brands = Brand.objects.filter(pk__in=rim_brand_ids)
+    return render(r, 'brands.html', locals())
+
+
 def product(r, slug):
     item = get_object_or_404(Product, slug=slug)
     return render(r, "product.html", locals())

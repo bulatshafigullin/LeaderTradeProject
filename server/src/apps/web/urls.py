@@ -37,6 +37,7 @@ urlpatterns = [
     path("checkout/", v.checkout),
     path("favorites/", v.favorites),
     path("rassrochka/", v.credit),
+    path("brands/", v.brands),
     path("froala_editor/", include("froala_editor.urls")),
     path("js/spark/promo/<int:id>/", v.promo_spark),
     path("js/spark/review/<int:id>/", v.review_spark),
